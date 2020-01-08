@@ -13,18 +13,22 @@ counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
 
 layout = load_map(filename)
 
-for i, type in enumerate(house_types):
-    c = counts[i]
-    for i in range(c):
-        free_spots = find_spot(layout, type)
-        xcoords, ycoords = np.where(free_spots == '.')
-        if len(xcoords) == 0:
-            print('NO SPACE LEFT AT', i, 'HOUSES!')
-            visualize_map(free_spots)
-            break
-        r = np.random.randint(0, len(xcoords))
-        x, y = xcoords[r], ycoords[r]
-        layout = place_house(layout, type, x, y)
+for i in range(c):
+    choices = [i for i in range(len(counts)) if counts[i] > 0]
+    i = np.random.choice(choices)
+    counts[i] -= 1
+    type = house_types[i]
+    print(type)
+
+    free_spots = find_spot(layout, type)
+    xcoords, ycoords = np.where(free_spots == '.')
+    if len(xcoords) == 0:
+        print('NO SPACE LEFT AT', i, 'HOUSES!')
+        visualize_map(free_spots)
+        break
+    r = np.random.randint(0, len(xcoords))
+    x, y = xcoords[r], ycoords[r]
+    layout = place_house(layout, type, x, y)
 
 free_spots = find_spot(layout, 'EENGEZINSWONING')
 visualize_map(free_spots)
