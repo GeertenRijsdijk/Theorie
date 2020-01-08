@@ -11,7 +11,6 @@ filename = sys.argv[1]
 c = int(sys.argv[2])
 counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
 
-
 layout = load_map(filename)
 
 for i in range(c):
