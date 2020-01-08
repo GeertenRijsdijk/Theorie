@@ -7,7 +7,7 @@ house_info = {
     #'name':(width, height, extra space)
     'EENGEZINSWONING':(8,8,2),
     'BUNGALOW':(11,7,3),
-    'MAISON':(12, 10,6)
+    'MAISON':(12,10,6)
 }
 
 def place_house(layout, type, x, y):
@@ -25,13 +25,23 @@ def find_spot(layout, houses, type):
     for house in houses:
         pass
 
+# initialize the grid
 layout = np.full([160,180],'.')
-print('Argument List:', str(sys.argv))
-with open('./wijken/wijk_1.csv', newline='') as csvfile:
+
+# argument handeling
+if len(sys.argv) != 3:
+    print('Arguments need to be a path to a file and the amount of houses')
+    sys.exit()
+
+# calculate the required amount of the different houses
+c = int(sys.argv[2])
+counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
+
+# read the input csv file
+with open(sys.argv[1], newline='') as csvfile:
     reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
         skipinitialspace=True)
-
-    T = [] # add all water objects to the neighbourhood
+    # add all water objects to the neighbourhood
     for obj in reader:
         if obj[-1] == 'WATER':
             xy1 = str.split(obj[1],',')
@@ -39,13 +49,9 @@ with open('./wijken/wijk_1.csv', newline='') as csvfile:
             x1, y1 = int(xy1[0]), int(xy1[1])
             x2, y2 = int(xy2[0]), int(xy2[1])
             layout[x1:x2,y1:y2].fill('W')
-        T.append(obj)
 print(layout)
 
 houses = []
 
 place_house(layout, 'EENGEZINSWONING', 4, 4)
 print(layout[:16, :16])
-
-# struture, bottom_left_xy, top_right_xy, type
-# water_1, "0,0", "32,180", WATER
