@@ -1,5 +1,5 @@
 houses = []
-
+house_types = ['EENGEZINSWONING', 'BUNGALOW', 'MAISON']
 waters = []
 
 house_info = {

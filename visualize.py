@@ -2,7 +2,7 @@ import numpy as np
 import pygame
 import random
 
-GRID_W, GRID_H = 4, 4
+GRID_W, GRID_H = 3, 3
 
 WIDTH, HEIGHT = (GRID_W*160, GRID_H*180)
 WHITE = (255,255,255)
