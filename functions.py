@@ -55,7 +55,6 @@ def find_spot(layout, type):
             spots[x1:x2, y1:y2] = np.where(spots[x1:x2, y1:y2] == '.', 'X', spots[x1:x2, y1:y2])
 
     for water in waters:
-        print(water)
         wx1, wy1, wx2, wy2 = water
         wx1 = min(layout_w, max(wx1 - w, 0))
         wy1 = min(layout_h, max(wy1 - h, 0))
