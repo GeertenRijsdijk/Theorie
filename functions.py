@@ -23,7 +23,7 @@ def load_map(filename):
     return layout
 
 def place_house(layout, type, x, y):
-    w, h, ex = house_info[type]
+    w, h, ex, _, _ = house_info[type]
 
     layout[x:x+w, y:y+h] = type[0]
     houses.append((type, x, y))
@@ -32,7 +32,7 @@ def place_house(layout, type, x, y):
 def find_spot(layout, type):
     spots = copy(layout)
     layout_w, layout_h = layout.shape
-    w, h, ex1 = house_info[type]
+    w, h, ex1, _, _ = house_info[type]
 
     spots[0:layout_w, 0:ex1] = np.where(spots[0:layout_w, 0:ex1] == '.', 'X', spots[0:layout_w, 0:ex1])
     spots[0:ex1, 0:layout_h] = np.where(spots[0:ex1, 0:layout_h] == '.', 'X', spots[0:ex1, 0:layout_h])
@@ -43,7 +43,7 @@ def find_spot(layout, type):
 
     for house in houses:
         type, x, y = house
-        w2, h2, ex2 = house_info[type]
+        w2, h2, ex2, _, _ = house_info[type]
         ex = max(ex1, ex2) + 1
         for i in range(ex):
             x1, x2 = x - w + 1 - i, x + w2 + i
@@ -60,5 +60,29 @@ def find_spot(layout, type):
         wy1 = min(layout_h, max(wy1 - h, 0))
         spots[wx1:wx2, wy1:wy2] = \
             np.where(spots[wx1:wx2, wy1:wy2] == '.', 'X', spots[wx1:wx2, wy1:wy2])
-
     return spots
+
+def closest_house(house):
+    ch = float("inf")
+    type, x, y = house
+    w, h, f, _, _ = house_info[type]
+    for item in houses:
+        if house != item:
+            type2, x2, y2 = item
+            w2, h2, _, _ , _ = house_info[type2]
+            xdiff = abs((x+w/2) - (x2+w2/2))
+            ydiff = abs((y+h/2) - (y2+h2/2))
+            xdiff = max(xdiff - w/2 - w2/2, 0)
+            ydiff = max(ydiff - h/2 - h2/2, 0)
+            total = (xdiff + ydiff) - f
+            if total < ch:
+                ch = total
+    return ch
+
+def calculate_price(layout):
+    totalprice = 0
+    for house in houses: # (type,x,y)
+        baseprice = house_info[house[0]][3]
+        multiplier = 1 + closest_house(house) * house_info[house[0]][4]
+        totalprice += baseprice * multiplier
+    return totalprice

@@ -18,7 +18,6 @@ for i in range(c):
     i = np.random.choice(choices)
     counts[i] -= 1
     type = house_types[i]
-    print(type)
 
     free_spots = find_spot(layout, type)
     xcoords, ycoords = np.where(free_spots == '.')
@@ -31,4 +30,5 @@ for i in range(c):
     layout = place_house(layout, type, x, y)
 
 free_spots = find_spot(layout, 'EENGEZINSWONING')
+print(calculate_price(layout))
 visualize_map(free_spots)
