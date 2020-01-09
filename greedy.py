@@ -17,13 +17,14 @@ counts[0] += c - sum(counts)
 
 # Load the map
 layout = load_map(filename)
+moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-# Randomly place houses
+# Greedily place houses
 for i in range(c):
     # Choose the type of house to randomly place
     choices = [i for i in range(len(counts)) if counts[i] > 0]
-    j = np.random.choice(choices)
-    counts[j] -= 1
+    r = np.random.choice(choices)
+    counts[r] -= 1
     type = house_types[i]
 
     # Find locations where new house can be placed
@@ -36,9 +37,26 @@ for i in range(c):
     # Choose random coordinates for the new house
     r = np.random.randint(0, len(xcoords))
     x, y = xcoords[r], ycoords[r]
-    # Place the house at the random coordinates
+    house = (type, x, y)
+    current_score = closest_house(house)
+    new_score = float('inf')
+    print('STARTING', i)
+    while current_score < new_score:
+        if new_score != float('inf'):
+            current_score = new_score
+        for move in moves:
+            (type, x, y) = house
+            new_house = (type, x + move[0],  y + move[1])
+            new_score = closest_house(new_house)
+            print(house, new_house)
+            print(current_score, new_score)
+            if new_score > current_score:
+                print('UPDATEE')
+                house = new_house
+                break
+
+    type, x, y = house
     layout = place_house(layout, type, x, y)
-    visualize_map(layout)
 
 free_spots = find_spot(layout, 'EENGEZINSWONING')
 print(calculate_price(layout))
