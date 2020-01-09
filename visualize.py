@@ -12,6 +12,7 @@ BLUE = (0, 0, 255)
 GREEN = (20, 255, 20)
 BROWN = (160, 80, 20)
 RED = (255,0,0)
+MARBLE = (230, 230, 200)
 
 def draw_grid(screen):
     for x in range(0, WIDTH, GRID_W):
@@ -38,8 +39,10 @@ def visualize_map(matrix):
             for y, val in enumerate(row):
                 if val == 'W':
                     pygame.draw.rect(screen, BLUE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
-                if val in ['E', 'B', 'M']:
+                if val in ['E', 'B']:
                     pygame.draw.rect(screen, BROWN, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+                if val in 'M':
+                    pygame.draw.rect(screen, MARBLE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
                 if val == 'X':
                     pygame.draw.rect(screen, RED, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
 

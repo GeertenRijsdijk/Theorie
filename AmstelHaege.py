@@ -31,4 +31,4 @@ for i in range(c):
 
 free_spots = find_spot(layout, 'EENGEZINSWONING')
 print(calculate_price(layout))
-visualize_map(free_spots)
+visualize_map(layout)
