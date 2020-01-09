@@ -22,10 +22,10 @@ moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 # Greedily place houses
 for i in range(c):
     # Choose the type of house to randomly place
-    choices = [i for i in range(len(counts)) if counts[i] > 0]
+    choices = [j for j in range(len(counts)) if counts[j] > 0]
     r = np.random.choice(choices)
     counts[r] -= 1
-    type = house_types[i]
+    type = house_types[r]
 
     # Find locations where new house can be placed
     free_spots = find_spot(layout, type)
@@ -50,7 +50,7 @@ for i in range(c):
             new_score = closest_house(new_house)
             print(house, new_house)
             print(current_score, new_score)
-            if new_score > current_score:
+            if new_score > current_score and free_spots[x + move[0],  y + move[1]] == '.':
                 print('UPDATEE')
                 house = new_house
                 break

@@ -21,10 +21,10 @@ layout = load_map(filename)
 # Randomly place houses
 for i in range(c):
     # Choose the type of house to randomly place
-    choices = [i for i in range(len(counts)) if counts[i] > 0]
-    j = np.random.choice(choices)
-    counts[j] -= 1
-    type = house_types[i]
+    choices = [j for j in range(len(counts)) if counts[j] > 0]
+    r = np.random.choice(choices)
+    counts[r] -= 1
+    type = house_types[r]
 
     # Find locations where new house can be placed
     free_spots = find_spot(layout, type)
@@ -38,7 +38,6 @@ for i in range(c):
     x, y = xcoords[r], ycoords[r]
     # Place the house at the random coordinates
     layout = place_house(layout, type, x, y)
-    visualize_map(layout)
 
 free_spots = find_spot(layout, 'EENGEZINSWONING')
 print(calculate_price(layout))
