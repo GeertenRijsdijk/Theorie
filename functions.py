@@ -8,7 +8,7 @@ from global_vars import *
 def load_map(filename):
     # initialize the grid
     layout = np.full([160,180],'.')
-    with open(sys.argv[1], newline='') as csvfile:
+    with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
             skipinitialspace=True)
         # add all water objects to the neighbourhood
