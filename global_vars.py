@@ -1,6 +1,7 @@
 houses = []
 house_types = ['EENGEZINSWONING', 'BUNGALOW', 'MAISON']
 waters = []
+moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
 house_info = {
     #'name':(width, height, extra space)

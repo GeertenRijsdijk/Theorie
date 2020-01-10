@@ -26,7 +26,6 @@ def random(layout, c, counts):
     return layout
 
 def greedy(layout, c, counts):
-    moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     # Greedily place houses
     for i in range(c):
@@ -64,5 +63,33 @@ def greedy(layout, c, counts):
         layout = place_house(layout, type, x, y)
     return layout
 
-def greedy2():
-    pass
+def hillclimb(layout, c, counts):
+    # initialize the grid
+    layout = greedy(layout, c, counts)
+    # move all houses with moves that maximize the score
+    current_total_score = calculate_price(layout)
+    new_total_score = float('inf')
+    while current_total_score < new_total_score:
+        if new_total_score != float('inf'):
+            current_total_score = new_total_score
+        for i in range(len(houses)):
+            house = houses[i]
+            (type, x, y) = house
+            current_score = closest_house(house)
+            new_score = float('inf')
+            layout, house = remove_house(layout, i)
+            free_spots = find_spot(layout, type)
+            while current_score < new_score:
+                if new_score != float('inf'):
+                    current_score = new_score
+                for move in moves:
+                    (type, x, y) = house
+                    new_house = (type, x + move[0],  y + move[1])
+                    new_score = closest_house(new_house)
+                    if new_score > current_score and free_spots[x + move[0],  y + move[1]] == '.':
+                        house = new_house
+                        break
+            type, x, y = house
+            new_total_score = calculate_price(layout)
+            layout = place_house(layout, type, x, y)
+    return layout

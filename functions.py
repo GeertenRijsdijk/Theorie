@@ -29,9 +29,9 @@ def place_house(layout, type, x, y):
     houses.append((type, x, y))
     return layout
 
-def remove_house(index):
-    type, x, y = house
-    w, h, _, _, _ = info[type]
+def remove_house(layout, index):
+    type, x, y = houses[index]
+    w, h, _, _, _ = house_info[type]
     layout[x:x+w, y:y+h] = '.'
     return layout, houses.pop(index)
 

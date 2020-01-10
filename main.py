@@ -24,7 +24,7 @@ if sys.argv[3] == 'r':
     layout = random(layout, c, counts)
 if sys.argv[3] == 'g':
     layout = greedy(layout, c, counts)
-if sys.argv[3] == 'g2':
-    layout = greedy2(layout, c, counts)
+if sys.argv[3] == 'h':
+    layout = hillclimb(layout, c, counts)
 print(calculate_price(layout))
 visualize_map(layout)
