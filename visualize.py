@@ -22,6 +22,8 @@ def draw_grid(screen):
     for y in range(0, HEIGHT, GRID_H):
         pygame.draw.line(screen, GREY, (0,y), (WIDTH,y))
 
+        # Fonts
+
 pygame.init()
 
 # uses the matrix to print all water and houses on the screen
@@ -51,6 +53,6 @@ def visualize_map(matrix):
                 if val == 'X':
                     pygame.draw.rect(screen, RED, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
 
-        draw_grid(screen)
+        #draw_grid(screen)
         pygame.display.flip()
         clock.tick(10)
