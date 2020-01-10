@@ -29,6 +29,12 @@ def place_house(layout, type, x, y):
     houses.append((type, x, y))
     return layout
 
+def remove_house(index):
+    type, x, y = house
+    w, h, _, _, _ = info[type]
+    layout[x:x+w, y:y+h] = '.'
+    return layout, houses.pop(index)
+
 def find_spot(layout, type):
     spots = copy(layout)
     layout_w, layout_h = layout.shape
