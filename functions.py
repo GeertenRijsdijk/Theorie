@@ -86,3 +86,45 @@ def calculate_price(layout):
         multiplier = 1 + closest_house(house) * house_info[house[0]][4]
         totalprice += baseprice * multiplier
     return totalprice
+
+def write_csv(houses):
+    # open new file
+    with open('houses.csv','w', newline='') as out:
+        csv_out = csv.writer(out)
+        csv_out.writerow(['num','bottom_left', 'top_right', 'type'])
+
+        # initialize counters
+        bungalow = 1
+        eengezinswoning = 1
+        maison = 1
+
+        # rewrite tuple to correct format using a list
+        for row in houses:
+            format = [0,0,0,0]
+            if row[0] == "BUNGALOW":
+                bottom_left = str([row[1], row[2] - 7])[1:-1]
+                top_right = str([row[1] + 11, row[2]])[1:-1]
+                format[0] = "bungalow_" + str(bungalow)
+                format[1] = bottom_left
+                format[2] = top_right
+                format[3] = row[0]
+                bungalow += 1
+            elif row[0] == "EENGEZINSWONING":
+                bottom_left = str([row[1], row[2] - 8])[1:-1]
+                top_right = str([row[1] + 8, row[2]])[1:-1]
+                format[0] = "eengezinswoning_" + str(eengezinswoning)
+                format[1] = bottom_left
+                format[2] = top_right
+                format[3] = row[0]
+                eengezinswoning += 1
+            else:
+                bottom_left = str([row[1], row[2] - 10])[1:-1]
+                top_right = str([row[1] + 12, row[2]])[1:-1]
+                format[0] = "maison_1" + str(maison)
+                format[1] = bottom_left
+                format[2] = top_right
+                format[3] = row[0]
+                maison += 1
+
+            # write to csv file
+            csv_out.writerow(format)
