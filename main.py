@@ -4,15 +4,26 @@ from algorithms import *
 
 # argument handeling
 if len(sys.argv) != 4:
-    print('Arguments need to be a path to a file and the amount of houses')
+    print("Arguments need to be a path to a file, the amount of houses and the algorithm")
+    sys.exit()
+
+# exit if not correct algorithm entered
+if sys.argv[3] not in ['r', 'g', 'h']:
+    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h")
     sys.exit()
 
 # calculate the required amount of the different houses
 filename = sys.argv[1]
 c = int(sys.argv[2])
 
+# exit if non valid number of houses is entered
+if c <= 0:
+   print("Please enter non-negative number of houses")
+   sys.exit()
+
 # Create the correct distribution for houses
 counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
+
 # Add more EENGEZINSWONING if the counts do not sum to c
 counts[0] += c - sum(counts)
 
