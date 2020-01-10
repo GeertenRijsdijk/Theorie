@@ -13,12 +13,15 @@ counts[0] += c - sum(counts)
 print('Starting')
 for i in range(20):
     houses = []
-    print('i:',i)
+    visualize_map(layout)
     rl.append(calculate_price(random(d(layout), c, d(counts))))
+    visualize_map(layout)
     houses = []
     gl.append(calculate_price(greedy(d(layout), c, d(counts))))
+    visualize_map(layout)
     houses = []
     hl.append(calculate_price(hillclimb(d(layout), c, d(counts))))
+    print(len(houses))
 
 print('ded')
 print(np.mean(rl),np.mean(gl),np.mean(hl))

@@ -29,8 +29,7 @@ pygame.init()
 
 # uses the matrix to print all water and houses on the screen
 def visualize_map(matrix):
-    real_screen = pygame.display.set_mode((WIDTH, HEIGHT),pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
-    screen = pygame.Surface((WIDTH, HEIGHT))
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('AmstelHague')
     clock = pygame.time.Clock()
 
@@ -40,12 +39,8 @@ def visualize_map(matrix):
         pygame.event.pump()
         event = pygame.event.wait()
         if event.type == pygame.QUIT:
-            in_loop = False
-        elif event.type == pygame.VIDEORESIZE:
-            real_screen = pygame.display.set_mode(event.dict['size'], pygame.DOUBLEBUF|pygame.RESIZABLE)
-            draw_grid(screen)
-            real_screen.blit(pygame.transform.scale(screen, event.dict['size']), (0, 0))
-            pygame.display.flip()
+            pygame.display.quit()
+            return
 
         screen.fill(GREEN)
         for x, row in enumerate(matrix):
@@ -60,3 +55,6 @@ def visualize_map(matrix):
                     pygame.draw.rect(screen, MARBLE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
                 if val == 'X':
                     pygame.draw.rect(screen, RED, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+
+        pygame.display.flip()
+        clock.tick(20)

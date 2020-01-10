@@ -24,7 +24,6 @@ def load_map(filename):
 
 def place_house(layout, type, x, y):
     w, h, ex = house_info[type][0:3]
-
     layout[x:x+w, y:y+h] = type[0]
     houses.append((type, x, y))
     return layout

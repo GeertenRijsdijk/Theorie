@@ -13,10 +13,11 @@ def random(layout, c, counts):
 
         # Find locations where new house can be placed
         free_spots = find_spot(layout, type)
+
         xcoords, ycoords = np.where(free_spots == '.')
         if len(xcoords) == 0:
             print('NO SPACE LEFT AT', i, 'HOUSES!')
-            visualize_map(free_spots)
+            #visualize_map(free_spots)
             break
         # Choose random coordinates for the new house
         r = np.random.randint(0, len(xcoords))
@@ -40,7 +41,7 @@ def greedy(layout, c, counts):
         xcoords, ycoords = np.where(free_spots == '.')
         if len(xcoords) == 0:
             print('NO SPACE LEFT AT', i, 'HOUSES!')
-            visualize_map(free_spots)
+            #visualize_map(free_spots)
             break
         # Choose random coordinates for the new house
         r = np.random.randint(0, len(xcoords))
