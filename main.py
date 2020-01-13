@@ -1,4 +1,4 @@
-from visualize import *
+#from visualize import *
 from functions import *
 from algorithms import *
 
@@ -32,10 +32,9 @@ layout = load_map(filename)
 
 # run an algorithm
 if sys.argv[3] == 'r':
-    layout = random(layout, c, counts)
+    layout, house_cwh, price = random(layout, c, counts)
 if sys.argv[3] == 'g':
-    layout = greedy(layout, c, counts)
+    layout, house_cwh, price = greedy(layout, c, counts)
 if sys.argv[3] == 'h':
-    layout = hillclimb(layout, c, counts)
-print(calculate_price(layout))
-visualize_map(layout)
+    layout, house_cwh, price = hillclimb(layout, c, counts)
+print(price)

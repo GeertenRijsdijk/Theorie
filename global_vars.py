@@ -1,3 +1,5 @@
+import numpy as np
+import sys
 houses = []
 house_types = ['EENGEZINSWONING', 'BUNGALOW', 'MAISON']
 waters = []

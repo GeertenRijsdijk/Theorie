@@ -22,11 +22,17 @@ def load_map(filename):
                 layout[x1:x2,y1:y2].fill('W')
     return layout
 
-def place_house(layout, type, x, y):
+def place_house(layout, house_cwh, type, x, y, i = None):
     w, h, ex = house_info[type][0:3]
     layout[x:x+w, y:y+h] = type[0]
-    houses.append((type, x, y))
-    return layout
+    if i == None:
+        houses.append((type, x, y))
+        house_cwh[len(houses)-1] = [x + w/2, y+h/2, w/2, h/2]
+    else:
+        houses.insert(i, (type, x, y))
+        house_cwh[i] = [x + w/2, y+h/2, w/2, h/2]
+
+    return layout, house_cwh
 
 def remove_house(layout, index):
     type, x, y = houses[index]
@@ -67,28 +73,28 @@ def find_spot(layout, type):
             np.where(spots[wx1:wx2, wy1:wy2] == '.', 'X', spots[wx1:wx2, wy1:wy2])
     return spots
 
-def closest_house(house):
-    ch = float("inf")
+def closest_house(house, house_cwh):
     type, x, y = house
     w, h, f, _, _ = house_info[type]
-    for item in houses:
-        if house != item:
-            type2, x2, y2 = item
-            w2, h2, _, _ , _ = house_info[type2]
-            xdiff = abs((x+w/2) - (x2+w2/2))
-            ydiff = abs((y+h/2) - (y2+h2/2))
-            xdiff = max(xdiff - w/2 - w2/2, 0)
-            ydiff = max(ydiff - h/2 - h2/2, 0)
-            total = (xdiff + ydiff) - f
-            if total < ch:
-                ch = total
-    return ch
 
-def calculate_price(layout):
+    centers = house_cwh[:, :2]
+    wh = house_cwh[:, 2:]
+
+    if len(houses) == 0:
+        return float("inf")
+    house_center = np.array([x + w/2, y + h/2])
+    dists_xy = np.abs(centers - house_center) - wh - np.array([w/2, h/2])
+    dists_xy = np.where(dists_xy < 0, 0, dists_xy)
+    dists = dists_xy[:,0] + dists_xy[:,1]
+    top2 = np.partition(dists, 1)[0:2]
+    best = top2[0] if top2[0] > 0 else top2[1]
+    return best - f
+
+def calculate_price(layout, house_cwh):
     totalprice = 0
     for house in houses: # (type,x,y)
         baseprice = house_info[house[0]][3]
-        multiplier = 1 + closest_house(house) * house_info[house[0]][4]
+        multiplier = 1 + closest_house(house, house_cwh) * house_info[house[0]][4]
         totalprice += baseprice * multiplier
     return totalprice
 
