@@ -12,16 +12,14 @@ counts[0] += c - sum(counts)
 
 print('Starting')
 for i in range(20):
-    houses = []
-    visualize_map(layout)
+    print('ITERATION', i)
+    houses *= 0
     rl.append(calculate_price(random(d(layout), c, d(counts))))
-    visualize_map(layout)
-    houses = []
+    houses *= 0
     gl.append(calculate_price(greedy(d(layout), c, d(counts))))
-    visualize_map(layout)
-    houses = []
+    houses *= 0
     hl.append(calculate_price(hillclimb(d(layout), c, d(counts))))
-    print(len(houses))
 
-print('ded')
-print(np.mean(rl),np.mean(gl),np.mean(hl))
+print('AVG VALUE WITH RANDOM:     ', np.mean(rl))
+print('AVG VALUE WITH GREEDY:     ', np.mean(gl))
+print('AVG VALUE WITH HILLCLIMBER:', np.mean(hl))

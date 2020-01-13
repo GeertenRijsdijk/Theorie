@@ -56,5 +56,6 @@ def visualize_map(matrix):
                 if val == 'X':
                     pygame.draw.rect(screen, RED, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
 
+        draw_grid(screen)
         pygame.display.flip()
         clock.tick(20)
