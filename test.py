@@ -1,27 +1,28 @@
 from algorithms import *
+from grid_class import *
 from copy import deepcopy as d
-filename = './wijken/wijk_1.csv'
+filename = './wijken/wijk_2.csv'
 rl = []
 gl = []
 hl = []
 
-c = 60
+c = 20
 n_iteration = 10
-layout = load_map(filename)
+grid = Grid(filename, c)
 counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
 counts[0] += c - sum(counts)
 
 print('Starting')
 for i in range(n_iteration):
-    print('ITERATION', i)
-    houses *= 0
-    _, _, price = random(d(layout), c, d(counts))
+    print('ITERATION', i, c, 'HOUSES')
+    _, price = random(grid)
+    grid.reset()
     rl.append(price)
-    houses *= 0
-    _, _, price = greedy(d(layout), c, d(counts))
+    _, price = greedy(grid)
+    grid.reset()
     gl.append(price)
-    houses *= 0
-    _, _, price = hillclimb(d(layout), c, d(counts))
+    _, price = hillclimb(grid)
+    grid.reset()
     hl.append(price)
 
 print('AVG VALUE WITH RANDOM:     ', np.mean(rl))
