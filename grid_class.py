@@ -1,11 +1,6 @@
-# python -m cProfile -o output main.py wijken/wijk_1.csv 60 h
-
-# import pstats
-# p = pstats.Stats('output')
-# p.sort_stats('cumulative').print_stats(50)
-
 from visualize import *
 from algorithms import *
+from copy import deepcopy
 
 class Grid():
     def __init__(self, filename, c):
@@ -32,11 +27,11 @@ class Grid():
         self.house_cwh[:, :2] = np.inf
 
         self.layout_orig = self.load_map(self.filename)
-        self.layout = self.layout_orig
+        self.layout = deepcopy(self.layout_orig)
 
     def reset(self):
         self.houses = []
-        self.layout = self.layout_orig
+        self.layout = deepcopy(self.layout_orig)
         self.house_cwh = np.zeros((self.c,4))
         self.house_cwh[:, :2] = np.inf
         # Create the correct distribution for houses

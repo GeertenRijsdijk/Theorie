@@ -1,13 +1,12 @@
 from algorithms import *
 from grid_class import *
-from copy import deepcopy as d
 filename = './wijken/wijk_2.csv'
 rl = []
 gl = []
 hl = []
 
-c = 20
-n_iteration = 10
+c = 40
+n_iteration = 100
 grid = Grid(filename, c)
 counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
 counts[0] += c - sum(counts)
@@ -24,6 +23,8 @@ for i in range(n_iteration):
     _, price = hillclimb(grid)
     grid.reset()
     hl.append(price)
+    print(grid.layout[20:40, 20:40])
+    print(grid.houses)
 
 print('AVG VALUE WITH RANDOM:     ', np.mean(rl))
 print('MAX VALUE WITH RANDOM:     ', np.max(rl))

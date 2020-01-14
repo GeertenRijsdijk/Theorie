@@ -4,6 +4,7 @@
 # p = pstats.Stats('output')
 # p.sort_stats('cumulative').print_stats(50)
 
+from visualize import *
 from grid_class import *
 
 # exit if incorrect number of arguments
