@@ -50,7 +50,7 @@ def find_spot(layout, type):
     spots[0:layout_w, layout_h-h-ex1:layout_h] = \
         np.where(spots[0:layout_w, layout_h-h-ex1:layout_h] == '.', 'X', spots[0:layout_w, layout_h-h-ex1:layout_h])
     spots[layout_w - w - ex1:layout_w, 0:layout_h] = \
-        np.where(spots[layout_w - w - ex1:layout_w, 0:layout_h] == '.', 'X',spots[layout_w - w - ex1:layout_w, 0:layout_h])
+        np.where(spots[layout_w - w - ex1:layout_w, 0:layout_h] == '.', 'X', spots[layout_w - w - ex1:layout_w, 0:layout_h])
 
     for house in houses:
         type, x, y = house

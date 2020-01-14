@@ -1,17 +1,19 @@
-#from visualize import *
-from functions import *
-from algorithms import *
+# python -m cProfile -o output main.py wijken/wijk_1.csv 60 h
 
-# argument handeling
+# import pstats
+# p = pstats.Stats('output')
+# p.sort_stats('cumulative').print_stats(50)
+
+from grid_class import *
+
+# exit if incorrect number of arguments
 if len(sys.argv) != 4:
     print("Arguments need to be a path to a file, the amount of houses and the algorithm")
     sys.exit()
-
 # exit if not correct algorithm entered
 if sys.argv[3] not in ['r', 'g', 'h']:
     print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h")
     sys.exit()
-
 # calculate the required amount of the different houses
 filename = sys.argv[1]
 c = int(sys.argv[2])
@@ -19,22 +21,14 @@ c = int(sys.argv[2])
 # exit if non valid number of houses is entered
 if c <= 0:
    print("Please enter non-negative number of houses")
-   sys.exit()
+   sys.exit
 
-# Create the correct distribution for houses
-counts = [int(c * 0.6), int(c * 0.25), int(c * 0.15)]
-
-# Add more EENGEZINSWONING if the counts do not sum to c
-counts[0] += c - sum(counts)
-
-# Load the map
-layout = load_map(filename)
-
-# run an algorithm
 if sys.argv[3] == 'r':
-    layout, house_cwh, price = random(layout, c, counts)
+    grid = Grid(filename, c)
+    print(random(grid))
 if sys.argv[3] == 'g':
-    layout, house_cwh, price = greedy(layout, c, counts)
+    grid = Grid(filename, c)
+    print(greedy(grid))
 if sys.argv[3] == 'h':
-    layout, house_cwh, price = hillclimb(layout, c, counts)
-print(price)
+    grid = Grid(filename, c)
+    print(hillclimb(grid))
