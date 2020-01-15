@@ -23,8 +23,6 @@ for i in range(n_iteration):
     _, price = hillclimb(grid)
     grid.reset()
     hl.append(price)
-    print(grid.layout[20:40, 20:40])
-    print(grid.houses)
 
 print('AVG VALUE WITH RANDOM:     ', np.mean(rl))
 print('MAX VALUE WITH RANDOM:     ', np.max(rl))

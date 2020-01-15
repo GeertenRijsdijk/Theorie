@@ -7,11 +7,11 @@ Omdat de Duivenderechtse polder ooit beschermd natuurgebied was, is de compromis
 ## Aan de slag
 
 ### Requirements
-This code is written in python 3.7+. The requirements.txt file contains all packages needed to run the code. These can be installed using pip with these commands:
+This code is written in python 3.7+. The requirements.txt file contains all packages needed to run the code. These can be installed using pip with the following commands:
 
     pip install -r requirements.txt
 
-Or with using conda:
+Or using conda:
 
     conda install --file requirements.txt
 
