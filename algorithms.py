@@ -49,7 +49,8 @@ def greedy(grid):
         r = np.random.randint(0, len(xcoords))
         x, y = xcoords[r], ycoords[r]
         house = (type, x, y)
-        current_score = grid.closest_house(house)
+        grid.place_house(type, x, y)
+        current_score = grid.calculate_price()
         new_score = float('inf')
         while current_score < new_score:
             if new_score != float('inf'):
@@ -57,13 +58,18 @@ def greedy(grid):
             for move in moves:
                 (type, x, y) = house
                 new_house = (type, x + move[0],  y + move[1])
-                new_score = grid.closest_house(new_house)
+                grid.remove_house(i)
+                grid.place_house(type, x + move[0],  y + move[1])
+                new_score = grid.calculate_price()
                 if new_score > current_score and free_spots[x + move[0],  y + move[1]] == '.':
                     house = new_house
                     break
+                else:
+                    grid.remove_house(-1)
+                    grid.place_house(type, x, y)
 
         type, x, y = house
-        grid.place_house(type, x, y)
+        #grid.place_house(type, x, y)
     return grid.layout, grid.calculate_price()
 
 def hillclimb(grid):

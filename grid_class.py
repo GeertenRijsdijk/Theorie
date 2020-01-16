@@ -72,6 +72,7 @@ class Grid():
         type, x, y = self.houses[index]
         w, h, _, _, _ = self.house_info[type]
         self.layout[x:x+w, y:y+h] = '.'
+        self.house_cwh[index] = [np.inf, np.inf, 0, 0]
         return self.houses.pop(index)
 
     def find_spot(self, type):
@@ -91,13 +92,20 @@ class Grid():
             w2, h2, ex2, _, _ = self.house_info[type]
             ex = max(ex1, ex2) + 1
             for i in range(ex):
-                x1, x2 = x - w + 1 - i, x + w2 + i
                 y1, y2 = y - h - (ex - i), y + h2 + (ex-i)
-                x1 = min(layout_w, max(x1, 0))
-                x2 = min(layout_w, max(x2, 0))
                 y1 = min(layout_h, max(y1, 0))
                 y2 = min(layout_h, max(y2, 0))
-                spots[x1:x2, y1:y2] = np.where(spots[x1:x2, y1:y2] == '.', 'X', spots[x1:x2, y1:y2])
+                if i == 0:
+                    x1, x2 = x - w + 1 - i, x + w2 + i
+                    x1 = min(layout_w, max(x1, 0))
+                    x2 = min(layout_w, max(x2, 0))
+                    spots[x1:x2, y1:y2] = np.where(spots[x1:x2, y1:y2] == '.', 'X', spots[x1:x2, y1:y2])
+                else:
+                    x1, x2 = x - w + 1 - i, x + w2 + i - 1
+                    x1 = min(layout_w-1, max(x1, 0))
+                    x2 = min(layout_w-1, max(x2, 0))
+                    spots[x1, y1:y2] = np.where(spots[x1, y1:y2] == '.', 'X', spots[x1, y1:y2])
+                    spots[x2, y1:y2] = np.where(spots[x2, y1:y2] == '.', 'X', spots[x2, y1:y2])
 
         for water in self.waters:
             wx1, wy1, wx2, wy2 = water
