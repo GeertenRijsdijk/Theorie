@@ -36,11 +36,10 @@ def visualize_map(matrix):
     # main game loop for pygame
     in_loop = True
     while in_loop:
-        pygame.event.pump()
-        event = pygame.event.wait()
-        if event.type == pygame.QUIT:
-            pygame.display.quit()
-            return
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.display.quit()
+                return
 
         screen.fill(GREEN)
         for x, row in enumerate(matrix):
@@ -58,4 +57,4 @@ def visualize_map(matrix):
 
         draw_grid(screen)
         pygame.display.flip()
-        clock.tick(20)
+        clock.tick(60)
