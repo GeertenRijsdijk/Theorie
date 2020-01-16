@@ -140,6 +140,20 @@ class Grid():
             totalprice += baseprice * multiplier
         return totalprice
 
+    # Calculates the price of the layout, given that house i is moved a certain
+    # distance
+    def calculate_price_of_move(self, i, xmove, ymove):
+        type, x, y = self.houses[i]
+        print(self.houses)
+        self.houses[i] = (type, x + xmove, y + ymove)
+        self.house_cwh[0:2, i] += np.array([xmove, ymove])
+        print(self.houses)
+        price = self.calculate_price()
+        self.houses[i] = (type, x, y)
+        self.house_cwh[0:2, i] -= np.array([xmove, ymove])
+        print(self.houses)
+        return price
+
     def write_csv(self):
         # open new file
         with open('houses.csv','w', newline='') as out:
