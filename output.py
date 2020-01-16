@@ -189,3 +189,73 @@ def steep_hillclimb(grid):
             new_total_score = grid.calculate_price()
             grid.place_house(type, x, y, i)
     return grid.layout, grid.calculate_price()
+
+#move deze naar grid_class.py anders werkt hij niet
+def validate_swap(self, type1, type2):
+    # get info two random houses
+    h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
+    h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
+    h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
+    h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
+    print(h1_type, h2_type)
+
+    # make matrix with required space
+    required_space = self.layout[h2_y - h1_ex1:h2_y + h1_h + h1_ex1, h2_x - h1_ex1:h2_x + h1_w + h1_ex1].transpose()
+    required_space_w = self.layout[h2_y:h2_y + h1_h , h2_x:h2_x + h1_w]
+    print(required_space)
+    required_space[h1_ex1: h1_ex1 + h2_h,h1_ex1: h1_ex1 + h2_w] = '.'
+
+    # house will be in the water
+    if 'W' in required_space_w:
+        print("in water")
+        return False
+    # other house too close
+    if 'M' in required_space or 'B' in required_space or 'E' in required_space:
+        print("house to close")
+        return False
+
+    # return true can be placed
+    print("can be swapped")
+    return True
+
+def swap(grid):
+    # initialize the grid
+    greedy2(grid)
+    # swap houses if improves score
+    current_total_score = grid.calculate_price()
+    new_total_score = float('inf')
+    while current_total_score < new_total_score:
+        if new_total_score != float('inf'):
+            current_total_score = new_total_score
+        for i in range(10):
+            # select two random houses of different kind
+            while grid.validate_swap(random_house1, random_house2) == False:
+                random_house1 = ["type", "x", "y"]
+                random_house2 = ["type", "x", "y"]
+                    # repeat if they are of the same type
+                while random_house1[0] == random_house2[0]:
+                    random_house1 = random.choice(grid.houses)
+                    random_house2 = random.choice(grid.houses)
+
+            ## hieronder nog niks veranderd
+            print("SUCCES")
+            house = grid.houses[i]
+            current_score = grid.calculate_price()
+            new_score = float('inf')
+            grid.remove_house(i)
+
+            while current_score < new_score:
+                if new_score != float('inf'):
+                    current_score = new_score
+                # consider all options, pick the best
+                for move in moves:
+                    (type, x, y) = house
+                    new_house = (type, x + move[0],  y + move[1])
+                    new_score = grid.calculate_price()
+                    if new_score > current_score and free_spots[x + move[0],  y + move[1]] == '.':
+                        current_score = new_score
+                        house = new_house
+
+            type, x, y = house
+            new_total_score = grid.calculate_price()
+            grid.place_house(type, x, y, i)
