@@ -76,7 +76,7 @@ class Grid():
         return self.houses.pop(index)
 
     def find_spot(self, type, exclude_index = None):
-        spots = copy(self.layout)
+        spots = copy(self.layout_orig)
         layout_w, layout_h = self.layout.shape
         w, h, ex1, _, _ = self.house_info[type]
 
@@ -152,10 +152,15 @@ class Grid():
         self.houses[i] = (type, x + xmove, y + ymove)
         self.house_cwh[i, 0:2] += np.array([xmove, ymove])
 
-        if spots[x + xmove, y + ymove] not in ['.', type[0]]:
-            price = 0
-        else:
-            price = self.calculate_price()
+        try:
+            if spots[x + xmove, y + ymove] not in ['.']:
+                price = 0
+            else:
+                price = self.calculate_price()
+        except:
+            print(x, y, xmove, ymove)
+            visualize_map(spots)
+
 
         self.houses[i] = (type, x, y)
         self.house_cwh[i, 0:2] -= np.array([xmove, ymove])
