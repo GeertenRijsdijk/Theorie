@@ -75,7 +75,7 @@ class Grid():
         self.house_cwh[index] = [np.inf, np.inf, 0, 0]
         return self.houses.pop(index)
 
-    def find_spot(self, type):
+    def find_spot(self, type, exclude_index = None):
         spots = copy(self.layout)
         layout_w, layout_h = self.layout.shape
         w, h, ex1, _, _ = self.house_info[type]
@@ -87,7 +87,9 @@ class Grid():
         spots[layout_w - w - ex1:layout_w, 0:layout_h] = \
             np.where(spots[layout_w - w - ex1:layout_w, 0:layout_h] == '.', 'X', spots[layout_w - w - ex1:layout_w, 0:layout_h])
 
-        for house in self.houses:
+        for i, house in enumerate(self.houses):
+            if i == exclude_index:
+                continue
             type, x, y = house
             w2, h2, ex2, _, _ = self.house_info[type]
             ex = max(ex1, ex2) + 1
@@ -144,51 +146,17 @@ class Grid():
     # distance
     def calculate_price_of_move(self, i, xmove, ymove):
         type, x, y = self.houses[i]
+
+        spots = self.find_spot(type, exclude_index = i)
+
         self.houses[i] = (type, x + xmove, y + ymove)
         self.house_cwh[i, 0:2] += np.array([xmove, ymove])
-        price = self.calculate_price()
+
+        if spots[x + xmove, y + ymove] not in ['.', type[0]]:
+            price = 0
+        else:
+            price = self.calculate_price()
+
         self.houses[i] = (type, x, y)
         self.house_cwh[i, 0:2] -= np.array([xmove, ymove])
         return price
-
-    def write_csv(self):
-        # open new file
-        with open('houses.csv','w', newline='') as out:
-            csv_out = csv.writer(out)
-            csv_out.writerow(['num','bottom_left', 'top_right', 'type'])
-
-            # initialize counters
-            bungalow = 1
-            eengezinswoning = 1
-            maison = 1
-
-            # rewrite tuple to correct format using a list
-            for row in self.houses:
-                format = [0,0,0,0]
-                if row[0] == "BUNGALOW":
-                    bottom_left = str([row[1], row[2] - 7])[1:-1]
-                    top_right = str([row[1] + 11, row[2]])[1:-1]
-                    format[0] = "bungalow_" + str(bungalow)
-                    format[1] = bottom_left
-                    format[2] = top_right
-                    format[3] = row[0]
-                    bungalow += 1
-                elif row[0] == "EENGEZINSWONING":
-                    bottom_left = str([row[1], row[2] - 8])[1:-1]
-                    top_right = str([row[1] + 8, row[2]])[1:-1]
-                    format[0] = "eengezinswoning_" + str(eengezinswoning)
-                    format[1] = bottom_left
-                    format[2] = top_right
-                    format[3] = row[0]
-                    eengezinswoning += 1
-                else:
-                    bottom_left = str([row[1], row[2] - 10])[1:-1]
-                    top_right = str([row[1] + 12, row[2]])[1:-1]
-                    format[0] = "maison_1" + str(maison)
-                    format[1] = bottom_left
-                    format[2] = top_right
-                    format[3] = row[0]
-                    maison += 1
-
-                # write to csv file
-                csv_out.writerow(format)
