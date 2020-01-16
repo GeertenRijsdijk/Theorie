@@ -101,6 +101,6 @@ def hillclimb(grid):
                         break
 
             type, x, y = house
-            new_total_score = grid.calculate_price()
             grid.place_house(type, x, y, i)
+            new_total_score = grid.calculate_price()
     return grid.layout, grid.calculate_price()
