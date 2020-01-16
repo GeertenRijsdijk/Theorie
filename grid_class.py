@@ -75,7 +75,7 @@ class Grid():
         self.house_cwh[index] = [np.inf, np.inf, 0, 0]
         return self.houses.pop(index)
 
-    def find_spot(self, type, exclude_index = None):
+    def find_spot(self, type):
         spots = copy(self.layout_orig)
         layout_w, layout_h = self.layout.shape
         w, h, ex1, _, _ = self.house_info[type]
@@ -88,8 +88,6 @@ class Grid():
             np.where(spots[layout_w - w - ex1:layout_w, 0:layout_h] == '.', 'X', spots[layout_w - w - ex1:layout_w, 0:layout_h])
 
         for i, house in enumerate(self.houses):
-            if i == exclude_index:
-                continue
             type, x, y = house
             w2, h2, ex2, _, _ = self.house_info[type]
             ex = max(ex1, ex2) + 1
@@ -147,21 +145,48 @@ class Grid():
     def calculate_price_of_move(self, i, xmove, ymove):
         type, x, y = self.houses[i]
 
-        spots = self.find_spot(type, exclude_index = i)
+        centerx, centery = self.house_cwh[i, 0:2]
+        self.house_cwh[i, 0:2] = np.array([np.inf, np.inf])
+
+        if not self.can_place_house(type, x + xmove, y + ymove):
+            self.house_cwh[i, 0:2] = np.array([centerx, centery])
+            return 0
 
         self.houses[i] = (type, x + xmove, y + ymove)
-        self.house_cwh[i, 0:2] += np.array([xmove, ymove])
+        self.house_cwh[i, 0:2] = np.array([centerx + xmove, centery + ymove])
 
-        try:
-            if spots[x + xmove, y + ymove] not in ['.']:
-                price = 0
-            else:
-                price = self.calculate_price()
-        except:
-            print(x, y, xmove, ymove)
-            visualize_map(spots)
-
+        price = self.calculate_price()
 
         self.houses[i] = (type, x, y)
         self.house_cwh[i, 0:2] -= np.array([xmove, ymove])
         return price
+
+    def can_place_house(self, type, x, y):
+        w, h, f, _, _ = self.house_info[type]
+        x2, y2 = x + w, y + h
+
+        if x - f < 0 or x2 + f > 160:
+            return False
+        if y - f < 0 or y2 + f > 180:
+            return False
+
+        for water in self.waters:
+            wx, wy, wx2, wy2 = water
+            if x < wx2 and x2 > wx and y < wy2 and y2> wy:
+                return False
+
+        if len(self.houses) == 0:
+            return True
+
+        centers = self.house_cwh[:, :2]
+        wh = self.house_cwh[:, 2:]
+        house_center = np.array([x + w/2, y + h/2])
+        dists_xy = np.abs(centers - house_center) - wh - np.array([w/2, h/2])
+        dists_xy = np.where(dists_xy < 0, 0, dists_xy)
+        dists = dists_xy[:,0] + dists_xy[:,1]
+        best = np.min(dists)
+        best_index = np.argmin(dists)
+        f2= self.house_info[self.houses[best_index][0]][2]
+        if best - max(f, f2) < 0:
+            return False
+        return True
