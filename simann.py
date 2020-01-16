@@ -25,12 +25,13 @@ def simann(grid):
         type, x, y = house
         movex, movey = moves[np.random.randint(0,len(moves))] # do a random move
         new_score = grid.calculate_price_of_move(index, movex, movey)
-        p = probability_function(score, new_score, T)
-        # accept the score if it's larger than a random value between 0 and 1
-        if p > np.random.uniform(0,1):
-            score = new_score
-            grid.remove_house(index)
-            grid.place_house(type, x + movex, y + movey, index)
-        T *= 1 - cooling_rate
+        if new_score != 0:
+            p = probability_function(score, new_score, T)
+            # accept the score if it's larger than a random value between 0 and 1
+            if p > np.random.uniform(0,1):
+                score = new_score
+                grid.remove_house(index)
+                grid.place_house(type, x + movex, y + movey, index)
+            T *= 1 - cooling_rate
 
     return grid.layout, grid.calculate_price()
