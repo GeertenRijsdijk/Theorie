@@ -76,7 +76,7 @@ class Grid():
         return self.houses.pop(index)
 
     def find_spot(self, type):
-        spots = copy(self.layout_orig)
+        spots = copy(self.layout)
         layout_w, layout_h = self.layout.shape
         w, h, ex1, _, _ = self.house_info[type]
 
@@ -172,7 +172,7 @@ class Grid():
 
         for water in self.waters:
             wx, wy, wx2, wy2 = water
-            if x < wx2 and x2 > wx and y < wy2 and y2> wy:
+            if x < wx2 and x2 > wx and y < wy2 and y2 > wy:
                 return False
 
         if len(self.houses) == 0:
