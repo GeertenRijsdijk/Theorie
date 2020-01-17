@@ -1,6 +1,5 @@
 import numpy as np
 import pygame
-import random
 from copy import copy
 
 # Variables for the grid and colors

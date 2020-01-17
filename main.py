@@ -4,16 +4,21 @@
 # p = pstats.Stats('output')
 # p.sort_stats('cumulative').print_stats(50)
 
-from visualize import *
-from grid_class import *
+from code.visualize import *
+from code.classes.grid_class import *
+from code.algorithms.random import *
+from code.algorithms.greedy import *
+from code.algorithms.hillclimber import *
+from code.algorithms.simann import *
+import sys
 
 # exit if incorrect number of arguments
 if len(sys.argv) != 4:
     print("Arguments need to be a path to a file, the amount of houses and the algorithm")
     sys.exit()
 # exit if not correct algorithm entered
-if sys.argv[3] not in ['r', 'g', 'h']:
-    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h")
+if sys.argv[3] not in ['r', 'g', 'h','s']:
+    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h, Simann = s")
     sys.exit()
 # calculate the required amount of the different houses
 filename = sys.argv[1]
@@ -24,12 +29,14 @@ if c <= 0:
    print("Please enter non-negative number of houses")
    sys.exit
 
+grid = Grid(filename, c)
 if sys.argv[3] == 'r':
-    grid = Grid(filename, c)
-    print(random(grid))
+    _, price = random(grid)
 if sys.argv[3] == 'g':
-    grid = Grid(filename, c)
-    print(greedy(grid))
+    _, price = greedy(grid)
 if sys.argv[3] == 'h':
-    grid = Grid(filename, c)
-    print(hillclimb(grid))
+    _, price = hillclimb(grid)
+if sys.argv[3] == 's':
+    _, price = simann(grid)
+print(price)
+visualize_map(grid.layout)

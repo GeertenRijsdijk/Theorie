@@ -1,8 +1,9 @@
-from greedy import *
+from .random import *
+from .greedy import *
 
 def hillclimb(grid):
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-    random(grid)
+    greedy(grid)
     # move all houses with moves that maximize the score
     current_total_score = grid.calculate_price()
     new_total_score = np.inf

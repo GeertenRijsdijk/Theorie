@@ -1,6 +1,6 @@
-from visualize import *
-from algorithms import *
-from copy import deepcopy
+from copy import copy, deepcopy
+import numpy as np
+import csv
 
 class Grid():
     def __init__(self, filename, c):

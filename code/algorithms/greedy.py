@@ -1,3 +1,5 @@
+from .random import *
+
 def greedy(grid):
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     # Greedily place houses

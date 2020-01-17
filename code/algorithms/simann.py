@@ -1,8 +1,4 @@
-from visualize import *
-from algorithms import *
-import csv
-import sys
-from copy import copy
+from .random import *
 
 def probability_function(old_score, new_score, T):
     if new_score > old_score:
