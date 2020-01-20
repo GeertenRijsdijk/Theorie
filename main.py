@@ -11,6 +11,7 @@ from code.algorithms.greedy import *
 from code.algorithms.hillclimber import *
 from code.algorithms.simann import *
 import sys
+import matplotlib.pyplot as plt
 
 # exit if incorrect number of arguments
 if len(sys.argv) != 4:
@@ -35,8 +36,16 @@ if sys.argv[3] == 'r':
 if sys.argv[3] == 'g':
     greedy(grid)
 if sys.argv[3] == 'h':
-    hillclimb(grid)
+    price_list = hillclimb(grid)
+    plt.plot(price_list)
+    plt.ylabel('iteration')
+    plt.ylabel('value')
+    plt.show()
 if sys.argv[3] == 's':
-    simann(grid)
+    price_list = simann(grid)
+    plt.plot(price_list)
+    plt.ylabel('iteration')
+    plt.ylabel('value')
+    plt.show()
 print(grid.calculate_price())
-visualize_map(grid.layout)
+#visualize_map(grid.layout)

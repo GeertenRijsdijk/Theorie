@@ -1,6 +1,9 @@
 import numpy as np
 import pygame
 from copy import copy
+import csv
+import matplotlib.pyplot as plt
+from collections import Counter
 
 # Variables for the grid and colors
 GRID_W, GRID_H = 3, 3
@@ -57,3 +60,23 @@ def visualize_map(matrix):
         draw_grid(screen)
         pygame.display.flip()
         clock.tick(60)
+
+def make_histogram(filename, n_houses, algorithm):
+    with open(filename, newline='') as csvfile:
+        reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
+            skipinitialspace=True)
+        val_list = []
+        for obj in reader:
+            if int(obj[0]) == n_houses and obj[1] == algorithm:
+                v = round(float(obj[-1]), -5)/1000000
+                val_list.append(v)
+
+        min_val = min(val_list)
+        max_val = max(val_list)
+        print(min_val, max_val)
+        bins = [round(min_val + 0.1*i, 1) for i in range(int(10*(max_val-min_val))+2)]
+        print(bins)
+        plt.hist(val_list, bins = bins, rwidth = 0.008, histtype = 'stepfilled')
+        plt.show()
+
+        return val_list
