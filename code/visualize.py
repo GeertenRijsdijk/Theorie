@@ -71,6 +71,9 @@ def make_histogram(filename, n_houses, algorithm):
                 v = round(float(obj[-1]), -5)/1000000
                 val_list.append(v)
 
+        if val_list == []:
+            return
+
         min_val = min(val_list)
         max_val = max(val_list)
         print(min_val, max_val)
