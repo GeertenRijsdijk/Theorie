@@ -1,0 +1,5 @@
+structure, bottom_left_xy, top_right_xy, type
+water_up, "45,20", "85,50", WATER
+water_down, "45,65", "85,95", WATER
+water_right, "85,20", "100,95", WATER
+water_left, "15,20", "45,95", WATER
