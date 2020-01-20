@@ -24,4 +24,4 @@ def random(grid):
         x, y = xcoords[r], ycoords[r]
         # Place the house at the random coordinates
         grid.place_house(type, x, y)
-    return grid.layout, grid.calculate_price()
+    return

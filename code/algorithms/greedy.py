@@ -40,4 +40,4 @@ def greedy(grid):
 
         type, x, y = house
         #grid.place_house(type, x, y)
-    return grid.layout, grid.calculate_price()
+    return

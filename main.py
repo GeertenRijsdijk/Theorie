@@ -31,12 +31,12 @@ if c <= 0:
 
 grid = Grid(filename, c)
 if sys.argv[3] == 'r':
-    _, price = random(grid)
+    random(grid)
 if sys.argv[3] == 'g':
-    _, price = greedy(grid)
+    greedy(grid)
 if sys.argv[3] == 'h':
-    _, price = hillclimb(grid)
+    hillclimb(grid)
 if sys.argv[3] == 's':
-    _, price = simann(grid)
-print(price)
+    simann(grid)
+print(grid.calculate_price())
 visualize_map(grid.layout)
