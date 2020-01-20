@@ -27,4 +27,4 @@ def hillclimb(grid):
                         break
 
             new_total_score = grid.calculate_price()
-    return grid.layout, grid.calculate_price()
+    return
