@@ -229,35 +229,29 @@ class Grid():
 
     def validate_swap(self, type1, type2):
         # get info two random houses
-        h1_type, h1_y, h1_x = type1
-        h2_type, h2_y, h2_x = type2
+        h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
+        h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
         h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
         h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
 
-        # make matrix with required space
-        required_space = copy(self.layout)
-        required_space = required_space[h2_y - h1_ex1:h2_y + h1_w + h1_ex1, h2_x - h1_ex1:h2_x + h1_h + h1_ex1]
+        # check if enough vrijstand
+        if closest_house(self, type1) < h1_ex1 or if closest_house(self, type2) < h2_ex1:
+            return False
+
+        # check if required space is in the grid
+        if h2_y - h1_ex1 < 0 or h2_x - h1_ex1 < 0 or h2_y + h1_w + h1_ex1 > 160 or h2_x + h1_h + h1_ex1 > 180:
+            return False
+        if h1_y - h2_ex1 < 0 or h1_x - h2_ex1 < 0 or h1_y + h2_w + h2_ex1 > 160 or h1_x + h2_h + h2_ex1 > 180:
+            return False
+
+        # check if house will be in the water
         required_space_w = copy(self.layout)
         required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
-        required_space[h1_ex1: h1_ex1 + h2_h,h1_ex1: h1_ex1 + h2_w ] = '.'
-
-        # house will be in the water
         if 'W' in required_space_w:
             return False
-        # other house too close
-        if 'M' in required_space or 'B' in required_space or 'E' in required_space:
-            return False
-
-        # check swap other direction
-        required_space = copy(self.layout)
-        required_space = required_space[h1_y - h2_ex1:h1_y + h2_w + h2_ex1, h1_x - h2_ex1:h1_x + h2_h + h2_ex1]
         required_space_w = copy(self.layout)
         required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
-        required_space[h2_ex1: h2_ex1 + h1_h,h2_ex1: h2_ex1 + h1_w ] = '.'
-
         if 'W' in required_space_w:
-            return False
-        if 'M' in required_space or 'B' in required_space or 'E' in required_space:
             return False
 
         return True
