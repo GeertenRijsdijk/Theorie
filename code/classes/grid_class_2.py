@@ -278,7 +278,7 @@ class Grid():
 
         return
 
-    def price_after_swap(self, house1, house2):
+    def price_after_swap(house1, house2):
         # swap houses in the houses list with tuples
         temp_list = copy(self.houses)
         houses_list = [list(elem) for elem in self.houses]
