@@ -12,6 +12,7 @@ def simann(grid, T = 10000000, cooling_rate = 0.003):
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     random(grid)
     score = grid.calculate_price()
+    price_list = [score]
     # Based on T do random moves that may be accepted
     while T > 1:
         index = np.random.randint(0,len(grid.houses))
@@ -24,8 +25,9 @@ def simann(grid, T = 10000000, cooling_rate = 0.003):
             # accept the score if it's larger than a random value between 0 and 1
             if p > np.random.uniform(0,1):
                 score = new_score
+                price_list.append(score)
                 grid.remove_house(index)
                 grid.place_house(type, x + movex, y + movey, index)
             T *= 1 - cooling_rate
 
-    return grid.layout, grid.calculate_price()
+    return price_list

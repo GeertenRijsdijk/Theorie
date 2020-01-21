@@ -1,4 +1,4 @@
-# python -m cProfile -o output main.py wijken/wijk_1.csv 60 h
+# python -m cProfile -o output main.py data/wijk_1.csv 60 h
 
 # import pstats
 # p = pstats.Stats('output')
@@ -11,6 +11,7 @@ from code.algorithms.greedy import *
 from code.algorithms.hillclimber import *
 from code.algorithms.simann import *
 import sys
+import matplotlib.pyplot as plt
 
 # exit if incorrect number of arguments
 if len(sys.argv) != 4:
@@ -31,12 +32,19 @@ if c <= 0:
 
 grid = Grid(filename, c)
 if sys.argv[3] == 'r':
-    _, price = random(grid)
+    random(grid)
 if sys.argv[3] == 'g':
-    _, price = greedy(grid)
+    greedy(grid)
 if sys.argv[3] == 'h':
-    _, price = hillclimb(grid)
+    price_list = hillclimb(grid)
+    plt.plot(price_list)
+    plt.ylabel('iteration')
+    plt.ylabel('value')
+    plt.show()
 if sys.argv[3] == 's':
-    _, price = simann(grid)
-print(price)
-visualize_map(grid.layout)
+    price_list = simann(grid)
+
+print(grid.calculate_price())
+
+if sys.argv[3] in ['h', 's']
+#visualize_map(grid.layout)
