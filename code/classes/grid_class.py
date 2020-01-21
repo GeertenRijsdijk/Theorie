@@ -227,34 +227,34 @@ class Grid():
             return False
         return True
 
-    def validate_swap(self, type1, type2):
-        # get info two random houses
-        h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
-        h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
-        h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
-        h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
-
-        # check if enough vrijstand
-        if closest_house(self, type1) < h1_ex1 or if closest_house(self, type2) < h2_ex1:
-            return False
-
-        # check if required space is in the grid
-        if h2_y - h1_ex1 < 0 or h2_x - h1_ex1 < 0 or h2_y + h1_w + h1_ex1 > 160 or h2_x + h1_h + h1_ex1 > 180:
-            return False
-        if h1_y - h2_ex1 < 0 or h1_x - h2_ex1 < 0 or h1_y + h2_w + h2_ex1 > 160 or h1_x + h2_h + h2_ex1 > 180:
-            return False
-
-        # check if house will be in the water
-        required_space_w = copy(self.layout)
-        required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
-        if 'W' in required_space_w:
-            return False
-        required_space_w = copy(self.layout)
-        required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
-        if 'W' in required_space_w:
-            return False
-
-        return True
+    # def validate_swap(self, type1, type2):
+    #     # get info two random houses
+    #     h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
+    #     h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
+    #     h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
+    #     h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
+    #
+    #     # check if enough vrijstand
+    #     if self.closest_house(type1) < h1_ex1 or self.closest_house(type2) < h2_ex1:
+    #         return False
+    #
+    #     # check if required space is in the grid
+    #     if h2_y - h1_ex1 < 0 or h2_x - h1_ex1 < 0 or h2_y + h1_w + h1_ex1 > 160 or h2_x + h1_h + h1_ex1 > 180:
+    #         return False
+    #     if h1_y - h2_ex1 < 0 or h1_x - h2_ex1 < 0 or h1_y + h2_w + h2_ex1 > 160 or h1_x + h2_h + h2_ex1 > 180:
+    #         return False
+    #
+    #     # check if house will be in the water
+    #     required_space_w = copy(self.layout)
+    #     required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
+    #     if 'W' in required_space_w:
+    #         return False
+    #     required_space_w = copy(self.layout)
+    #     required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
+    #     if 'W' in required_space_w:
+    #         return False
+    #
+    #     return True
 
     def swap(self, house1, house2):
         # get info
@@ -293,8 +293,37 @@ class Grid():
         self.house_cwh[index_h1, :2] = np.array([h1x, h1y])
         self.house_cwh[index_h2, :2] = np.array([h2x, h2y])
 
+        ### CHECK WHETHER LEGAL
+
+        # get info two houses
+        h1_type, h1_y, h1_x = house1
+        h2_type, h2_y, h2_x = house2
+        h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
+        h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
+
         # calculate new_score
         new_score = self.calculate_price()
+
+        # check if enough vrijstand
+        if self.closest_house(house1) < h1_ex1 or self.closest_house(house2) < h2_ex1:
+            print(house1, house2)
+            new_score = 0
+
+        # check if required space is in the grid
+        if h2_y - h1_ex1 < 0 or h2_x - h1_ex1 < 0 or h2_y + h1_w + h1_ex1 > 160 or h2_x + h1_h + h1_ex1 > 180:
+            new_score = 0
+        if h1_y - h2_ex1 < 0 or h1_x - h2_ex1 < 0 or h1_y + h2_w + h2_ex1 > 160 or h1_x + h2_h + h2_ex1 > 180:
+            new_score = 0
+
+        # check if house will be in the water
+        required_space_w = copy(self.layout)
+        required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
+        if 'W' in required_space_w:
+            new_score = 0
+        required_space_w = copy(self.layout)
+        required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
+        if 'W' in required_space_w:
+            new_score = 0
 
         # reset settings
         self.houses = temp_list
