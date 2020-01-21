@@ -279,9 +279,6 @@ class Grid():
     return grid.layout, grid.calculate_price()
 
     def swap_profitable(grid, house1, house2):
-        # calculate score current grid
-        current_score = grid.calculate_price()
-
         # swap houses in the houses list with tuples
         temp_list = copy(grid.houses)
         houses_list = [list(elem) for elem in grid.houses]
@@ -305,7 +302,4 @@ class Grid():
         grid.houses = temp_list
         grid.house_cwh = temp_matrix
 
-        if new_score > current_score:
-            return True
-        else:
-            return False
+        return new_score
