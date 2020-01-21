@@ -133,13 +133,21 @@ class Grid():
         best = top2[0] if top2[0] > 0 else top2[1]
         return best - f
 
+    # def calculate_price_2(self):
+    #     totalprice = 0
+    #     for house in self.houses:
+    #         bp = self.house_info[house[0]][3]
+    #         mp = 1 + self.closest_house(house) * self.house_info[house[0]][4]
+    #         totalprice += bp * mp
+    #     return totalprice
+
     def calculate_price(self):
         n = len(self.houses)
         # Create n x n matrices for X, Y, W, H
-        X = np.tile(self.house_cwh[:, 0], (n, 1))
-        Y = np.tile(self.house_cwh[:, 1], (n, 1))
-        W = np.tile(self.house_cwh[:, 2], (n, 1))
-        H = np.tile(self.house_cwh[:, 3], (n, 1))
+        X = np.tile(self.house_cwh[:n, 0], (n, 1))
+        Y = np.tile(self.house_cwh[:n, 1], (n, 1))
+        W = np.tile(self.house_cwh[:n, 2], (n, 1))
+        H = np.tile(self.house_cwh[:n, 3], (n, 1))
 
         # Create n x n matrix of required space for houses
         f_list = [self.house_info[type][2] for type, _, _ in self.houses]
@@ -161,10 +169,12 @@ class Grid():
         np.fill_diagonal(dists, np.inf)
         min_dists = dists.min(1)
 
+        # Calculate prices
         base_prices = np.array([self.house_info[t][3] for t, _, _ in self.houses])
         price_incs = np.array([self.house_info[t][4] for t, _, _ in self.houses])
 
         prices = base_prices + base_prices * price_incs * min_dists
+
         return np.sum(prices)
 
     # Calculates the price of the layout, given that house i is moved a certain
