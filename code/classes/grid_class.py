@@ -296,8 +296,8 @@ class Grid():
         ### CHECK WHETHER LEGAL
 
         # get info two houses
-        h1_type, h1_y, h1_x = house1
-        h2_type, h2_y, h2_x = house2
+        h1_type, h1_x, h1_y = house1
+        h2_type, h2_x, h2_y = house2
         h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
         h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
 
@@ -305,23 +305,22 @@ class Grid():
         new_score = self.calculate_price()
 
         # check if enough vrijstand
-        if self.closest_house(house1) < h1_ex1 or self.closest_house(house2) < h2_ex1:
-            print(house1, house2)
+        if self.closest_house(self.houses[index_h1]) < h1_ex1 or self.closest_house(self.houses[index_h2]) < h2_ex1:
             new_score = 0
 
         # check if required space is in the grid
-        if h2_y - h1_ex1 < 0 or h2_x - h1_ex1 < 0 or h2_y + h1_w + h1_ex1 > 160 or h2_x + h1_h + h1_ex1 > 180:
+        if h2_x - h1_ex1 < 0 or h2_y - h1_ex1 < 0 or h2_x + h1_w + h1_ex1 > 160 or h2_y + h1_h + h1_ex1 > 180:
             new_score = 0
-        if h1_y - h2_ex1 < 0 or h1_x - h2_ex1 < 0 or h1_y + h2_w + h2_ex1 > 160 or h1_x + h2_h + h2_ex1 > 180:
+        if h1_x - h2_ex1 < 0 or h1_y - h2_ex1 < 0 or h1_x + h2_w + h2_ex1 > 160 or h1_y + h2_h + h2_ex1 > 180:
             new_score = 0
 
         # check if house will be in the water
         required_space_w = copy(self.layout)
-        required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
+        required_space_w = required_space_w[h2_x:h2_x + h1_w, h2_y:h2_y + h1_h]
         if 'W' in required_space_w:
             new_score = 0
         required_space_w = copy(self.layout)
-        required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
+        required_space_w = required_space_w[h1_x:h1_x + h2_w, h1_y:h1_y + h2_h]
         if 'W' in required_space_w:
             new_score = 0
 

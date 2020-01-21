@@ -81,9 +81,12 @@ def make_histogram(filename, n_houses, algorithm):
             val = round(v, -5)/1000000
             val_list[i] = val
 
+        print('MEAN2:', np.mean(val_list))
+        print('MAX2:', np.max(val_list))
+
         min_val = min(val_list)
         max_val = max(val_list)
-        bins = [round(min_val + 0.1*i, 1) for i in range(int(10*(max_val-min_val))+2)]
+        bins = [round(min_val + 0.1*i, 1) for i in range(int(10*(max_val-min_val+0.001))+1)]
         print(bins)
         plt.hist(val_list, bins = bins, edgecolor = 'black', rwidth = 0.8, align = 'right')
         plt.xlabel('waarde van wijk')

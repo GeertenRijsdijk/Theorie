@@ -16,7 +16,7 @@ def simann(grid, T = 10000000, cooling_rate = 0.003, stopT=0.1):
     # Based on T do random moves that may be accepted
     while T > stopT:
         index = np.random.randint(0,len(grid.houses))
-        house = grid.houses[index]# random house
+        house = grid.houses[index] # random house
         type, x, y = house
         movex, movey = moves[np.random.randint(0,len(moves))] # do a random move
         new_score = grid.calculate_price_of_move(index, movex, movey)
