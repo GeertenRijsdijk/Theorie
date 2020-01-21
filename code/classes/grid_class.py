@@ -229,11 +229,10 @@ class Grid():
 
     def validate_swap(self, type1, type2):
         # get info two random houses
-        h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
-        h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
+        h1_type, h1_y, h1_x = type1
+        h2_type, h2_y, h2_x = type2
         h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
         h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
-        print(h1_type, h1_w, h1_h, h2_type, h2_w, h2_h)
 
         # make matrix with required space
         required_space = copy(self.layout)
@@ -290,10 +289,15 @@ class Grid():
         houses_list[index_h2][2] = house1[2]
         self.houses = [tuple(l) for l in houses_list]
 
-        # swap the houses in the centers matrix
         temp_matrix = copy(self.house_cwh)
-        self.house_cwh[index_h1] = temp_matrix[index_h2]
-        self.house_cwh[index_h2] = temp_matrix[index_h1]
+
+        # swap the houses in the centers matrix
+        h1x = houses_list[index_h1][1] + self.house_info[house1[0]][0]/2
+        h1y = houses_list[index_h1][2] + self.house_info[house1[0]][1]/2
+        h2x = houses_list[index_h2][1] + self.house_info[house2[0]][0]/2
+        h2y = houses_list[index_h2][2] + self.house_info[house2[0]][1]/2
+        self.house_cwh[index_h1, :2] = np.array([h1x, h1y])
+        self.house_cwh[index_h2, :2] = np.array([h2x, h2y])
 
         # calculate new_score
         new_score = self.calculate_price()
