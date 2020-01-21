@@ -1,4 +1,4 @@
-# python -m cProfile -o output main.py wijken/wijk_1.csv 60 h
+# python -m cProfile -o output main.py data/wijk_1.csv 60 h
 
 # import pstats
 # p = pstats.Stats('output')

@@ -116,14 +116,15 @@ class Grid():
         return spots
 
     def closest_house(self, house):
+        if len(self.houses) == 0:
+            return float("inf")
+
         type, x, y = house
         w, h, f, _, _ = self.house_info[type]
 
         centers = self.house_cwh[:, :2]
         wh = self.house_cwh[:, 2:]
 
-        if len(self.houses) == 0:
-            return float("inf")
         house_center = np.array([x + w/2, y + h/2])
         dists_xy = np.abs(centers - house_center) - wh - np.array([w/2, h/2])
         dists_xy = np.where(dists_xy < 0, 0, dists_xy)
@@ -133,12 +134,38 @@ class Grid():
         return best - f
 
     def calculate_price(self):
-        totalprice = 0
-        for house in self.houses: # (type,x,y)
-            baseprice = self.house_info[house[0]][3]
-            multiplier = 1 + self.closest_house(house) * self.house_info[house[0]][4]
-            totalprice += baseprice * multiplier
-        return totalprice
+        n = len(self.houses)
+        # Create n x n matrices for X, Y, W, H
+        X = np.tile(self.house_cwh[:, 0], (n, 1))
+        Y = np.tile(self.house_cwh[:, 1], (n, 1))
+        W = np.tile(self.house_cwh[:, 2], (n, 1))
+        H = np.tile(self.house_cwh[:, 3], (n, 1))
+
+        # Create n x n matrix of required space for houses
+        f_list = [self.house_info[type][2] for type, _, _ in self.houses]
+        F = np.tile(np.array(f_list), (n, 1))
+        # Each row represents the distances for one house
+        F = np.transpose(F)
+
+        # Calculate distances in X and Y direction
+        X = np.abs(X - np.transpose(X)) - W - np.transpose(W)
+        Y = np.abs(Y - np.transpose(Y)) - H - np.transpose(H)
+
+        # Set distances smaller than 0 to 0.
+        X = np.where(X < 0, 0, X)
+        Y = np.where(Y < 0, 0, Y)
+
+        # Calculate distances between houses
+        dists = X + Y - F
+        # Ignore distances between house and itself
+        np.fill_diagonal(dists, np.inf)
+        min_dists = dists.min(1)
+
+        base_prices = np.array([self.house_info[t][3] for t, _, _ in self.houses])
+        price_incs = np.array([self.house_info[t][4] for t, _, _ in self.houses])
+
+        prices = base_prices + base_prices * price_incs * min_dists
+        return np.sum(prices)
 
     # Calculates the price of the layout, given that house i is moved a certain
     # distance
