@@ -172,7 +172,6 @@ class Grid():
         # Calculate prices
         base_prices = np.array([self.house_info[t][3] for t, _, _ in self.houses])
         price_incs = np.array([self.house_info[t][4] for t, _, _ in self.houses])
-
         prices = base_prices + base_prices * price_incs * min_dists
 
         return np.sum(prices)

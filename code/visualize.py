@@ -74,12 +74,13 @@ def make_histogram(filename, n_houses, algorithm):
         if val_list == []:
             return
 
+        print(len(val_list))
         min_val = min(val_list)
         max_val = max(val_list)
-        print(min_val, max_val)
         bins = [round(min_val + 0.1*i, 1) for i in range(int(10*(max_val-min_val))+2)]
-        print(bins)
-        plt.hist(val_list, bins = bins, rwidth = 0.008, histtype = 'stepfilled')
+        plt.hist(val_list, bins = bins, edgecolor = 'black', rwidth = 0.8)
+        plt.xlabel('waarde van wijk')
+        plt.ylabel('aantal keer')
         plt.show()
 
         return val_list

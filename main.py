@@ -43,9 +43,8 @@ if sys.argv[3] == 'h':
     plt.show()
 if sys.argv[3] == 's':
     price_list = simann(grid)
-    plt.plot(price_list)
-    plt.ylabel('iteration')
-    plt.ylabel('value')
-    plt.show()
+
 print(grid.calculate_price())
+
+if sys.argv[3] in ['h', 's']
 #visualize_map(grid.layout)
