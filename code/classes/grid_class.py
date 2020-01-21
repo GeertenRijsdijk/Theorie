@@ -226,3 +226,86 @@ class Grid():
         if best - max(f, f2) < 0:
             return False
         return True
+
+    def validate_swap(self, type1, type2):
+        # get info two random houses
+        h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
+        h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
+        h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
+        h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
+        print(h1_type, h1_w, h1_h, h2_type, h2_w, h2_h)
+
+        # make matrix with required space
+        required_space = copy(self.layout)
+        required_space = required_space[h2_y - h1_ex1:h2_y + h1_w + h1_ex1, h2_x - h1_ex1:h2_x + h1_h + h1_ex1]
+        required_space_w = copy(self.layout)
+        required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
+        required_space[h1_ex1: h1_ex1 + h2_h,h1_ex1: h1_ex1 + h2_w ] = '.'
+
+        # house will be in the water
+        if 'W' in required_space_w:
+            return False
+        # other house too close
+        if 'M' in required_space or 'B' in required_space or 'E' in required_space:
+            return False
+
+        # check swap other direction
+        required_space = copy(self.layout)
+        required_space = required_space[h1_y - h2_ex1:h1_y + h2_w + h2_ex1, h1_x - h2_ex1:h1_x + h2_h + h2_ex1]
+        required_space_w = copy(self.layout)
+        required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
+        required_space[h2_ex1: h2_ex1 + h1_h,h2_ex1: h2_ex1 + h1_w ] = '.'
+
+        if 'W' in required_space_w:
+            return False
+        if 'M' in required_space or 'B' in required_space or 'E' in required_space:
+            return False
+
+        return True
+
+    def swap(grid, house1, house2):
+        # get info
+        index_h1 = grid.houses.index(house1)
+        index_h2 = grid.houses.index(house2)
+        type_1, x_1, y_1 = grid.houses[index_h1]
+        type_2, x_2, y_2 = grid.houses[index_h2]
+
+        # swap the houses
+        grid.remove_house(index_h1)
+        grid.place_house(type_2, x_1 , y_1, index_h1)
+        grid.remove_house(index_h2)
+        grid.place_house(type_1, x_2 , y_2, index_h2)
+
+    return grid.layout, grid.calculate_price()
+
+    def swap_profitable(grid, house1, house2):
+        # calculate score current grid
+        current_score = grid.calculate_price()
+
+        # swap houses in the houses list with tuples
+        temp_list = copy(grid.houses)
+        houses_list = [list(elem) for elem in grid.houses]
+        index_h1 = grid.houses.index(house1)
+        index_h2 = grid.houses.index(house2)
+        houses_list[index_h1][1] = house2[1]
+        houses_list[index_h1][2] = house2[2]
+        houses_list[index_h2][1] = house1[1]
+        houses_list[index_h2][2] = house1[2]
+        grid.houses = [tuple(l) for l in houses_list]
+
+        # swap the houses in the centers matrix
+        temp_matrix = copy(grid.house_cwh)
+        grid.house_cwh[index_h1] = temp_matrix[index_h2]
+        grid.house_cwh[index_h2] = temp_matrix[index_h1]
+
+        # calculate new_score
+        new_score = grid.calculate_price()
+
+        # reset settings
+        grid.houses = temp_list
+        grid.house_cwh = temp_matrix
+
+        if new_score > current_score:
+            return True
+        else:
+            return False

@@ -64,9 +64,7 @@ def swap(grid):
             grid.house_cwh = temp_matrix
 
             # if score not better reset, else swap houses
-            if new_score <= current_score:
-                print("dont swap")
-            else:
+            if new_score >= current_score:
                 new_total_score = new_score
 
                 type_1, x_1, y_1 = grid.houses[index_h1]
@@ -97,11 +95,9 @@ def validate_swap(self, type1, type2):
 
     # house will be in the water
     if 'W' in required_space_w:
-        print("in water")
         return False
     # other house too close
     if 'M' in required_space or 'B' in required_space or 'E' in required_space:
-        print("house to close")
         return False
 
     # check swap other direction
@@ -112,11 +108,8 @@ def validate_swap(self, type1, type2):
     required_space[h2_ex1: h2_ex1 + h1_h,h2_ex1: h2_ex1 + h1_w ] = '.'
 
     if 'W' in required_space_w:
-        print("in water")
         return False
     if 'M' in required_space or 'B' in required_space or 'E' in required_space:
-        print("house to close")
         return False
 
-    print("can be swapped")
     return True
