@@ -68,17 +68,24 @@ def make_histogram(filename, n_houses, algorithm):
         val_list = []
         for obj in reader:
             if int(obj[0]) == n_houses and obj[1] == algorithm:
-                v = round(float(obj[-1]), -5)/1000000
-                val_list.append(v)
+                val_list.append(float(obj[-1]))
 
         if val_list == []:
             return
 
-        print(len(val_list))
+        print(len(val_list), 'instances')
+        print('MEAN:', np.mean(val_list))
+        print('MAX:', np.max(val_list))
+
+        for i, v in enumerate(val_list):
+            val = round(v, -5)/1000000
+            val_list[i] = val
+
         min_val = min(val_list)
         max_val = max(val_list)
         bins = [round(min_val + 0.1*i, 1) for i in range(int(10*(max_val-min_val))+2)]
-        plt.hist(val_list, bins = bins, edgecolor = 'black', rwidth = 0.8)
+        print(bins)
+        plt.hist(val_list, bins = bins, edgecolor = 'black', rwidth = 0.8, align = 'right')
         plt.xlabel('waarde van wijk')
         plt.ylabel('aantal keer')
         plt.show()
