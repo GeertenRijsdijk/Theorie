@@ -276,7 +276,7 @@ class Grid():
         grid.remove_house(index_h2)
         grid.place_house(type_1, x_2 , y_2, index_h2)
 
-    return grid.layout, grid.calculate_price()
+        return grid.layout, grid.calculate_price()
 
     def swap_profitable(grid, house1, house2):
         # swap houses in the houses list with tuples

@@ -7,14 +7,14 @@ def probability_function(old_score, new_score, T):
         return np.exp((new_score - old_score) / T)
 
 # simulated annealing algorithm with NO SWAP
-def simann(grid, T = 10000000, cooling_rate = 0.003):
+def simann(grid, T = 10000000, cooling_rate = 0.003, stopT=0.1):
     # initialize the grid
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     random(grid)
     score = grid.calculate_price()
     price_list = [score]
     # Based on T do random moves that may be accepted
-    while T > 1:
+    while T > stopT:
         index = np.random.randint(0,len(grid.houses))
         house = grid.houses[index]# random house
         type, x, y = house

@@ -2,12 +2,10 @@ import numpy as np
 import csv
 import sys
 from copy import copy
-from visualize import *
-from algorithms import *
 
-def write_outputcsv(num_houses, algorithm, revenue):
+def write_outputcsv(filename, num_houses, algorithm, revenue):
     # write to the output file
-    with open('output.csv','a', newline='') as out:
+    with open(filename,'a', newline='') as out:
         csv_out = csv.writer(out)
         csv_out.writerow([num_houses, algorithm, revenue])
 
