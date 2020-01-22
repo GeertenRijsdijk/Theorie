@@ -24,9 +24,18 @@ runs the wijk_3.csv file with 20 houses with the greedy algorithm.
 The different algorithms can be found in the main.py file.
 
 ### Structure
-* **algorithms.py**: contains code for the different algorithms
-* **visualize.py**: contains code to visualize the house placement
-* **wijken/**: contains different csv file with the placement of water
+
+The following list describes the file structure of the project:
+
+- **/code**: contains all code of the project.
+  - **/code/algorithms**: contains code for the different algorithms.
+    - **/code/algorithms/random.py**: contains code for the random algorithm.
+    - **/code/algorithms/greedy.py**: contains code for the greedy algorithm.
+    - **/code/algorithms/hillclimb.py**: contains code for the hillclimber algorithm.
+    - **/code/algorithms/simann.py**: contains code for the simulated annealing algorithm.
+  - **/code/classes**: contains code for the classes of the project.
+    - **/code/classes/grid_class.py**: contains code for the Grid class.
+- **/data**: contains the data of the layouts of the projects.
 
 ## Authors
 * Geerten Rijsdijk
