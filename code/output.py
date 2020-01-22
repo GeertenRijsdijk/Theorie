@@ -9,7 +9,7 @@ def write_outputcsv(filename, num_houses, algorithm, revenue):
         csv_out = csv.writer(out)
         csv_out.writerow([num_houses, algorithm, revenue])
 
-def write_csv(houses):
+def write_csv(grid):
     # open new file
     with open('houses.csv','w', newline='') as out:
         csv_out = csv.writer(out)
@@ -21,7 +21,7 @@ def write_csv(houses):
         maison = 1
 
         # rewrite tuple to correct format using a list
-        for row in self.houses:
+        for row in grid.houses:
             format = [0,0,0,0]
             if row[0] == "BUNGALOW":
                 bottom_left = str([row[1], row[2] - 7])[1:-1]

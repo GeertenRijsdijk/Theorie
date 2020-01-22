@@ -7,7 +7,7 @@ def probability_function(old_score, new_score, T):
         return np.exp((new_score - old_score) / T)
 
 # simulated annealing algorithm with NO SWAP
-def simann_swap(grid, T = 10000000, cooling_rate = 0.003, stopT=0.1, swap_prob = 0.1):
+def simann(grid, T = 10000000, cooling_rate = 0.003, stopT=0.1, swap_prob = 0.1):
     # initialize the grid
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     random(grid)

@@ -46,5 +46,4 @@ if sys.argv[3] == 's':
 
 print(grid.calculate_price())
 
-if sys.argv[3] in ['h', 's']
-#visualize_map(grid.layout)
+visualize_map(grid.layout)
