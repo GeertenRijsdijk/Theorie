@@ -1,3 +1,14 @@
+'''
+random.py
+
+Authors:
+- Wisse Bemelman
+- Michael de Jong
+- Geerten Rijsdijk
+
+This file implements the random algorithm which places houses randomly onto
+the grid.
+'''
 import numpy as np
 from copy import copy
 

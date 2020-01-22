@@ -1,4 +1,15 @@
-from .random import *
+'''
+greedy.py
+
+Authors:
+- Wisse Bemelman
+- Michael de Jong
+- Geerten Rijsdijk
+
+This file implements the greedy algorithm which places a house randomly onto
+the grid, and then moves this as long as the move gives price gain, until
+all houses are placed
+'''
 
 def greedy(grid):
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]

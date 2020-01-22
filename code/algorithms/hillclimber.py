@@ -1,4 +1,16 @@
-from .random import *
+'''
+greedy.py
+
+Authors:
+- Wisse Bemelman
+- Michael de Jong
+- Geerten Rijsdijk
+
+This file implements the hillclimber algorithm, which places the houses randomly
+and then moves them until a local optimum is reached. It returns a list of
+the prices of the grid over the iterations, which can be plotted.
+'''
+
 from .greedy import *
 
 def hillclimb(grid):

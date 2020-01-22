@@ -1,3 +1,17 @@
+'''
+simann.py
+
+Authors:
+- Wisse Bemelman
+- Michael de Jong
+- Geerten Rijsdijk
+
+This file implements the simulated annealing algorithm. The function contains
+parameters for the temperature, cooling rate, stop temperature and swap
+probability. The function returns a list of prices per iteration, which can
+be plotted.
+'''
+
 from .random import *
 
 def probability_function(old_score, new_score, T):

@@ -1,3 +1,15 @@
+'''
+grid_class.py
+
+Authors:
+- Wisse Bemelman
+- Michael de Jong
+- Geerten Rijsdijk
+
+This file implements a class which represents the entire problem. The class
+contains representations of the state of the problem as well as functions to
+place/remove houses, calculate the price of the grid, swap houses and more.
+'''
 from copy import copy, deepcopy
 import numpy as np
 import csv

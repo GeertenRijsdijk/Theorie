@@ -1,3 +1,15 @@
+'''
+visualize.py
+
+Authors:
+- Wisse Bemelman
+- Michael de Jong
+- Geerten Rijsdijk
+
+This file contains a function to visualize the layout of the grid, as well as
+a function that creates a histogram of results in a csv file.
+'''
+
 import numpy as np
 import pygame
 from copy import copy
