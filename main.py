@@ -1,9 +1,18 @@
-# python -m cProfile -o output main.py data/wijk_1.csv 60 h
+'''
+main.py
 
-# import pstats
-# p = pstats.Stats('output')
-# p.sort_stats('cumulative').print_stats(50)
+Authors:
+    - Wisse Bemelman
+    - Michael de Jong
+    - Geerten Rijsdijk
 
+This file implements the front end for the algorithms and visualisation.
+usage:
+    python main.py <datafile> <amount of houses> <algorithm>
+example:
+    python main.py ./data/wijk_2.csv 60 r
+The algorithm choices are located in the readme.
+'''
 from code.visualize import *
 from code.classes.grid_class import *
 from code.algorithms.random import *
@@ -42,7 +51,7 @@ if sys.argv[3] == 'h':
     plt.ylabel('value')
     plt.show()
 if sys.argv[3] == 's':
-    price_list = simann(grid)
+    price_list = simann(grid,10000000,0.0001,0.01,0.3)
 
 print(grid.calculate_price())
 
