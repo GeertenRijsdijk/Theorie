@@ -43,7 +43,7 @@ class Grid():
     # read the input csv file
     def load_map(self, filename):
         # initialize the grid
-        layout = np.full([160,180],'.')
+        self.layout = np.full([160,180],'.')
         with open(filename, newline='') as csvfile:
             reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
                 skipinitialspace=True)
@@ -55,8 +55,14 @@ class Grid():
                     x1, y1 = int(xy1[0]), int(xy1[1])
                     x2, y2 = int(xy2[0]), int(xy2[1])
                     self.waters.append((x1, y1, x2, y2))
-                    layout[x1:x2,y1:y2].fill('W')
-        return layout
+                    self.layout[x1:x2,y1:y2].fill('W')
+                elif obj[-1] in self.house_types:
+                    xy1 = str.split(obj[1],',')
+                    xy2 = str.split(obj[2],',')
+                    x, y = int(xy1[0]), int(xy2[1])
+                    self.place_house(obj[-1], x, y)
+
+        return self.layout
 
     def place_house(self, type, x, y, i = None):
         w, h, ex = self.house_info[type][0:3]
@@ -133,14 +139,7 @@ class Grid():
         best = top2[0] if top2[0] > 0 else top2[1]
         return best - f
 
-    # def calculate_price_2(self):
-    #     totalprice = 0
-    #     for house in self.houses:
-    #         bp = self.house_info[house[0]][3]
-    #         mp = 1 + self.closest_house(house) * self.house_info[house[0]][4]
-    #         totalprice += bp * mp
-    #     return totalprice
-
+    # Calculate total price of layout
     def calculate_price(self):
         n = len(self.houses)
         # Create n x n matrices for X, Y, W, H
@@ -226,35 +225,6 @@ class Grid():
         if best - max(f, f2) < 0:
             return False
         return True
-
-    # def validate_swap(self, type1, type2):
-    #     # get info two random houses
-    #     h1_type, h1_y, h1_x = type1[0], type1[1], type1[2]
-    #     h2_type, h2_y, h2_x = type2[0], type2[1], type2[2]
-    #     h1_w, h1_h, h1_ex1, _, _ = self.house_info[h1_type]
-    #     h2_w, h2_h, h2_ex1, _, _= self.house_info[h2_type]
-    #
-    #     # check if enough vrijstand
-    #     if self.closest_house(type1) < h1_ex1 or self.closest_house(type2) < h2_ex1:
-    #         return False
-    #
-    #     # check if required space is in the grid
-    #     if h2_y - h1_ex1 < 0 or h2_x - h1_ex1 < 0 or h2_y + h1_w + h1_ex1 > 160 or h2_x + h1_h + h1_ex1 > 180:
-    #         return False
-    #     if h1_y - h2_ex1 < 0 or h1_x - h2_ex1 < 0 or h1_y + h2_w + h2_ex1 > 160 or h1_x + h2_h + h2_ex1 > 180:
-    #         return False
-    #
-    #     # check if house will be in the water
-    #     required_space_w = copy(self.layout)
-    #     required_space_w = required_space_w[h2_y:h2_y + h1_w, h2_x:h2_x + h1_h]
-    #     if 'W' in required_space_w:
-    #         return False
-    #     required_space_w = copy(self.layout)
-    #     required_space_w = required_space_w[h1_y:h1_y + h2_w, h1_x:h1_x + h2_h]
-    #     if 'W' in required_space_w:
-    #         return False
-    #
-    #     return True
 
     def swap(self, house1, house2):
         # get info

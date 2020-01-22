@@ -11,9 +11,14 @@ def write_outputcsv(filename, num_houses, algorithm, revenue):
 
 def write_csv(grid, filename = 'houses.csv'):
     # open new file
-    with open(filename,'w', newline='') as out:
+    with open(filename, 'w', newline='') as out:
         csv_out = csv.writer(out)
         csv_out.writerow(['num','bottom_left', 'top_right', 'type'])
+
+        for i, water in enumerate(grid.waters):
+            str1 = str(water[0]) + "," + str(water[1])
+            str2 = str(water[2]) + "," + str(water[3])
+            csv_out.writerow(['water_' + str(i+1)] + [str1] + [str2] + ['WATER'])
 
         # initialize counters
         bungalow = 1
