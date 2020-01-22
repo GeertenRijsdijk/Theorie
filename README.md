@@ -15,13 +15,17 @@ Or using conda:
 
     conda install --file requirements.txt
 
-### Use
+### Usage
 To run the code
     python main.py <path with filename> <amount of houses> <algorithm>
+runs the wijk_3.csv file with 20 houses with the greedy algorithm.
+The different algorithms that can be run are:
+    - r: random
+    - g: greedy
+    - h: hillclimber
+    - s: Simulated Annealing
 So for example:
     python main.py ./wijken/wijk_3.csv 20 g
-runs the wijk_3.csv file with 20 houses with the greedy algorithm.
-The different algorithms can be found in the main.py file.
 
 ### Structure
 
@@ -35,6 +39,8 @@ The following list describes the file structure of the project:
     - **/code/algorithms/simann.py**: contains code for the simulated annealing algorithm.
   - **/code/classes**: contains code for the classes of the project.
     - **/code/classes/grid_class.py**: contains code for the Grid class.
+  - **/code/visualize.py**: contains code for the visualization of the project.
+  - **/code/output.py**: contains code for the writing of results to csv.
 - **/data**: contains the data of the layouts of the projects.
 
 ## Authors
