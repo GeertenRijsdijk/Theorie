@@ -21,6 +21,7 @@ from collections import Counter
 GRID_W, GRID_H = 3, 3
 
 WIDTH, HEIGHT = (GRID_W*160, GRID_H*180)
+WIDTH_PLUS = WIDTH + 200
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREY = (50, 50, 50)
@@ -29,6 +30,23 @@ GREEN = (20, 255, 20)
 BROWN = (160, 80, 20)
 RED = (255,0,0)
 MARBLE = (230, 230, 200)
+
+
+# Function displays text on screen
+def draw_text(surf, text, fontsize, x, y, pos = "left", color = BLACK):
+    font = pygame.font.SysFont('Monospace', fontsize)
+    text_surface = font.render(text, True, color)
+    text_rect = text_surface.get_rect()
+    if pos == "left":
+        text_rect.topleft = (x,y)
+    elif pos == "right":
+        text_rect.topright = (x,y)
+    elif pos == "center":
+        text_rect.center = (x,y)
+    else:
+        text_rect.midtop = (x,y)
+    surf.blit(text_surface, text_rect)
+    return (text_rect.x, text_rect.y, text_rect.width, text_rect.height)
 
 # draws a grid on the pygame window
 def draw_grid(screen):
@@ -42,10 +60,45 @@ def draw_grid(screen):
 pygame.init()
 
 # uses the matrix to print all water and houses on the screen
-def visualize_map(matrix):
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+def visualize_map(grid):
+    if isinstance(grid, np.ndarray):
+        matrix = grid
+        screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    else:
+        matrix = grid.layout
+        screen = pygame.display.set_mode((WIDTH_PLUS, HEIGHT))
     pygame.display.set_caption('AmstelHague')
     clock = pygame.time.Clock()
+
+    screen.fill(WHITE)
+    pygame.draw.rect(screen, GREEN, (0,0,WIDTH,HEIGHT))
+    pygame.draw.rect(screen, BLACK, (WIDTH, 0, WIDTH_PLUS - WIDTH, HEIGHT), 1)
+    for x, row in enumerate(matrix):
+        for y, val in enumerate(row):
+            if val == 'W':
+                pygame.draw.rect(screen, BLUE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+            if val == 'E':
+                pygame.draw.rect(screen, BROWN, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+            if val == 'B':
+                pygame.draw.rect(screen, BLACK, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+            if val in 'M':
+                pygame.draw.rect(screen, MARBLE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+            if val == 'X':
+                pygame.draw.rect(screen, RED, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
+
+    draw_grid(screen)
+
+    if not isinstance(grid, np.ndarray):
+        draw_text(screen, 'FILENAME:', 18, WIDTH + 10, 10)
+        draw_text(screen, grid.filename, 12, WIDTH + 30, 30)
+
+        draw_text(screen, 'NUMBER OF HOUSES:', 18, WIDTH + 10, 70)
+        draw_text(screen, str(len(grid.houses)), 18, WIDTH + 30, 90)
+
+        draw_text(screen, 'PRICE:', 18, WIDTH + 10, 130)
+        draw_text(screen, str(grid.calculate_price()), 18, WIDTH + 30, 150)
+
+    pygame.display.flip()
 
     # main game loop for pygame
     in_loop = True
@@ -54,23 +107,10 @@ def visualize_map(matrix):
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    pygame.image.save(screen, 'grid.png')
 
-        screen.fill(GREEN)
-        for x, row in enumerate(matrix):
-            for y, val in enumerate(row):
-                if val == 'W':
-                    pygame.draw.rect(screen, BLUE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
-                if val == 'E':
-                    pygame.draw.rect(screen, BROWN, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
-                if val == 'B':
-                    pygame.draw.rect(screen, BLACK, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
-                if val in 'M':
-                    pygame.draw.rect(screen, MARBLE, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
-                if val == 'X':
-                    pygame.draw.rect(screen, RED, (GRID_W*x, GRID_H*y, GRID_W, GRID_H))
-
-        draw_grid(screen)
-        pygame.display.flip()
         clock.tick(60)
 
 def make_histogram(filename, n_houses, algorithm):
