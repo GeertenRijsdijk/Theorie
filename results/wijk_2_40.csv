@@ -1,0 +1,45 @@
+num,bottom_left,top_right,type
+water_1,"0,135","32,180",WATER
+water_2,"0,0","32,45",WATER
+water_3,"128,135","160,180",WATER
+water_4,"128,0","160,45",WATER
+maison_11,"32, 152","44, 142",MAISON
+bungalow_1,"52, 37","63, 30",BUNGALOW
+eengezinswoning_1,"85, 102","93, 94",EENGEZINSWONING
+bungalow_2,"59, 177","70, 170",BUNGALOW
+eengezinswoning_2,"2, 101","10, 93",EENGEZINSWONING
+eengezinswoning_3,"104, 94","112, 86",EENGEZINSWONING
+eengezinswoning_4,"74, 90","82, 82",EENGEZINSWONING
+eengezinswoning_5,"80, 78","88, 70",EENGEZINSWONING
+eengezinswoning_6,"58, 92","66, 84",EENGEZINSWONING
+eengezinswoning_7,"117, 119","125, 111",EENGEZINSWONING
+maison_12,"116, 23","128, 13",MAISON
+eengezinswoning_8,"100, 112","108, 104",EENGEZINSWONING
+eengezinswoning_9,"101, 60","109, 52",EENGEZINSWONING
+eengezinswoning_10,"42, 94","50, 86",EENGEZINSWONING
+bungalow_3,"72, 10","83, 3",BUNGALOW
+bungalow_4,"32, 10","43, 3",BUNGALOW
+bungalow_5,"3, 52","14, 45",BUNGALOW
+maison_13,"142, 98","154, 88",MAISON
+maison_14,"78, 145","90, 135",MAISON
+eengezinswoning_11,"64, 74","72, 66",EENGEZINSWONING
+bungalow_6,"3, 77","14, 70",BUNGALOW
+eengezinswoning_12,"84, 64","92, 56",EENGEZINSWONING
+eengezinswoning_13,"96, 76","104, 68",EENGEZINSWONING
+eengezinswoning_14,"73, 102","81, 94",EENGEZINSWONING
+eengezinswoning_15,"2, 131","10, 123",EENGEZINSWONING
+bungalow_7,"49, 58","60, 51",BUNGALOW
+eengezinswoning_16,"48, 78","56, 70",EENGEZINSWONING
+maison_15,"142, 55","154, 45",MAISON
+eengezinswoning_17,"29, 107","37, 99",EENGEZINSWONING
+eengezinswoning_18,"32, 47","40, 39",EENGEZINSWONING
+eengezinswoning_19,"115, 77","123, 69",EENGEZINSWONING
+bungalow_8,"52, 117","63, 110",BUNGALOW
+bungalow_9,"27, 67","38, 60",BUNGALOW
+bungalow_10,"146, 135","157, 128",BUNGALOW
+eengezinswoning_20,"86, 90","94, 82",EENGEZINSWONING
+eengezinswoning_21,"72, 50","80, 42",EENGEZINSWONING
+eengezinswoning_22,"89, 48","97, 40",EENGEZINSWONING
+maison_16,"116, 174","128, 164",MAISON
+eengezinswoning_23,"25, 90","33, 82",EENGEZINSWONING
+eengezinswoning_24,"15, 118","23, 110",EENGEZINSWONING
