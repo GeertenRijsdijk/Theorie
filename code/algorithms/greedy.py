@@ -11,6 +11,8 @@ the grid, and then moves this as long as the move gives price gain, until
 all houses are placed
 '''
 
+import numpy as np
+
 def greedy(grid):
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     # Greedily place houses

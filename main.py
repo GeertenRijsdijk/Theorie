@@ -39,6 +39,7 @@ if c <= 0:
    print("Please enter non-negative number of houses")
    sys.exit
 
+# Run correct algorithm
 grid = Grid(filename, c)
 if sys.argv[3] == 'r':
     random(grid)
@@ -46,13 +47,14 @@ if sys.argv[3] == 'g':
     greedy(grid)
 if sys.argv[3] == 'h':
     price_list = hillclimb(grid)
-    plt.plot(price_list)
-    plt.ylabel('iteration')
-    plt.ylabel('value')
-    plt.show()
 if sys.argv[3] == 's':
     price_list = simann(grid,10000000,0.0001,0.01,0.3)
 
 print(grid.calculate_price())
 
+if sys.argv[3] in ['h', 's']:
+    plt.plot(price_list)
+    plt.ylabel('iteration')
+    plt.ylabel('value')
+    plt.show()
 visualize_map(grid.layout)
