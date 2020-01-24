@@ -107,12 +107,17 @@ def visualize_map(grid):
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 return
+            # make a screenshot when you press the spacebar
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    pygame.image.save(screen, 'grid.png')
+                    location = grid.filename
+                    location = file.strip('.csv')
+                    location = file.replace('/data','/results')
+                    pygame.image.save(screen, '.' + location + '.png')
 
         clock.tick(60)
 
+# plots a histogram with the values of the csv output files
 def make_histogram(filename, n_houses, algorithm, ran = None):
     with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
@@ -136,7 +141,7 @@ def make_histogram(filename, n_houses, algorithm, ran = None):
         print('MEAN2:', np.mean(val_list))
         print('MAX2:', np.max(val_list))
 
-
+        # round the price values and put them into bins
         if range:
             bins = [round(ran[0] + 0.1*i, 1) for i in range(int(10*(ran[1]-ran[0]+0.001))+1)]
             plt.hist(val_list, bins = bins, edgecolor = 'black', rwidth = 0.8, align = 'right')
