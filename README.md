@@ -32,6 +32,7 @@ So for example:
 The following list describes the file structure of the project:
 
 - **/main.py**: the file used to run the algorithms.
+- **/visualize_csv.py** the file used to visualize the maps/result csv files
 - **/code**: contains all code of the project.
   - **/code/algorithms**: contains code for the different algorithms.
     - **/code/algorithms/random.py**: contains code for the random algorithm.

@@ -17,16 +17,6 @@ import csv
 class Grid():
     def __init__(self, filename, c):
         self.filename = filename
-        self.c = c
-        # Create the correct distribution for houses
-        self.counts = [int(self.c * 0.6), int(self.c * 0.25), int(self.c * 0.15)]
-
-        # Add more EENGEZINSWONING if the counts do not sum to c
-        self.counts[0] += self.c - sum(self.counts)
-
-        self.houses = []
-        self.house_types = ['EENGEZINSWONING', 'BUNGALOW', 'MAISON']
-        self.waters = []
 
         self.house_info = {
             #'name':(width, height, extra space)
@@ -34,6 +24,21 @@ class Grid():
             'BUNGALOW':(11,7,3,399000,0.04),
             'MAISON':(12,10,6,610000,0.06)
         }
+
+        self.house_types = ['EENGEZINSWONING', 'BUNGALOW', 'MAISON']
+        self.houses = []
+        self.waters = []
+
+        # Set number of houses. If None, reads c in from filename.
+        if c:
+            self.c = c
+        else:
+            self.c = self.count_houses(filename)
+        # Create the correct distribution for houses
+        self.counts = [int(self.c * 0.6), int(self.c * 0.25), int(self.c * 0.15)]
+
+        # Add more EENGEZINSWONING if the counts do not sum to c
+        self.counts[0] += self.c - sum(self.counts)
 
         self.house_cwh = np.zeros((self.c,4))
         self.house_cwh[:, :2] = np.inf
@@ -51,6 +56,16 @@ class Grid():
 
         # Add more EENGEZINSWONING if the counts do not sum to c
         self.counts[0] += self.c - sum(self.counts)
+
+    def count_houses(self, filename):
+        n_houses = 0
+        with open(filename, newline='') as csvfile:
+            reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
+                skipinitialspace=True)
+            for obj in reader:
+                if obj[-1] in self.house_types:
+                    n_houses += 1
+        return n_houses
 
     # read the input csv file
     def load_map(self, filename):
@@ -154,6 +169,8 @@ class Grid():
     # Calculate total price of layout
     def calculate_price(self):
         n = len(self.houses)
+        if n == 0:
+            return 0
         # Create n x n matrices for X, Y, W, H
         X = np.tile(self.house_cwh[:n, 0], (n, 1))
         Y = np.tile(self.house_cwh[:n, 1], (n, 1))
