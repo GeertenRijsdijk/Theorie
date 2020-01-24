@@ -8,12 +8,18 @@ Authors:
 
 This file implements the random algorithm which places houses randomly onto
 the grid.
+
+Parameters:
+    - grid: the grid object
+
+Returns:
+    - None
 '''
+
 import numpy as np
 from copy import copy
 
 def random(grid):
-
     # Randomly place houses
     for i in range(grid.c):
         # Choose the type of house to randomly place

@@ -9,6 +9,12 @@ Authors:
 This file implements the greedy algorithm which places a house randomly onto
 the grid, and then moves this as long as the move gives price gain, until
 all houses are placed
+
+Parameters:
+    - grid: the grid object
+
+Returns:
+    - None
 '''
 
 import numpy as np
@@ -26,10 +32,12 @@ def greedy(grid):
         # Find locations where new house can be placed
         free_spots = grid.find_spot(type)
         xcoords, ycoords = np.where(free_spots == '.')
+
+        # Print error if there is no space left
         if len(xcoords) == 0:
             print('NO SPACE LEFT AT', i, 'HOUSES!')
-            #visualize_map(free_spots)
-            break
+            quit()
+
         # Choose random coordinates for the new house
         r = np.random.randint(0, len(xcoords))
         x, y = xcoords[r], ycoords[r]
@@ -37,6 +45,8 @@ def greedy(grid):
         grid.place_house(type, x, y)
         current_score = grid.calculate_price()
         new_score = float('inf')
+
+        # Move house as long as this improves the score
         while current_score < new_score:
             if new_score != float('inf'):
                 current_score = new_score
@@ -52,5 +62,4 @@ def greedy(grid):
                     grid.place_house(type, x, y)
 
         type, x, y = house
-        #grid.place_house(type, x, y)
     return
