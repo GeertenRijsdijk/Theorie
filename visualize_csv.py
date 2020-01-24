@@ -6,13 +6,16 @@ Authors:
     - Michael de Jong
     - Geerten Rijsdijk
 
-This file implements the front end for the algorithms and visualisation.
+This file implements the visualisation of the result csvs.
 usage:
-    python main.py <datafile> <amount of houses> <algorithm>
+    python main.py <filename>
 example:
-    python main.py ./data/wijk_2.csv 60 r
-The algorithm choices are located in the readme.
+    python main.py results/wijk_1_20.csv
+
+While the visualization is open, spacebar can be pressed to save the image
+as a png.
 '''
+
 import sys
 from code.visualize import *
 from code.classes.grid_class import *

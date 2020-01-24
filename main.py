@@ -57,4 +57,4 @@ if sys.argv[3] in ['h', 's']:
     plt.ylabel('iteration')
     plt.ylabel('value')
     plt.show()
-visualize_map(grid.layout)
+visualize_map(grid)
