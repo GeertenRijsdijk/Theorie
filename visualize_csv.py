@@ -8,9 +8,9 @@ Authors:
 
 This file implements the visualisation of the result csvs.
 usage:
-    python main.py <filename>
+    python visualize_csv.py <filename>
 example:
-    python main.py results/wijk_1_20.csv
+    python visualize_csv.py results/wijk_1_20.csv
 
 While the visualization is open, spacebar can be pressed to save the image
 as a png.
