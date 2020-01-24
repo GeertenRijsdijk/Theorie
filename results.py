@@ -1,3 +1,21 @@
+'''
+results.py
+
+Authors:
+    - Wisse Bemelman
+    - Michael de Jong
+    - Geerten Rijsdijk
+
+This file is used to test multiple iterations of an algorithm.
+It saves the all the results to a csv file, and the best layout to a different
+csv file.
+usage:
+    python results.py <datafile> <amount of houses> <algorithm> <n_iterations>
+example:
+    python results.py ./data/wijk_2.csv 60 r 100
+The algorithm choices are located in the readme.
+'''
+
 from code.visualize import *
 from code.classes.grid_class import *
 from code.algorithms.random import *
@@ -7,22 +25,61 @@ from code.algorithms.simann import *
 from code.output import *
 import sys
 
-# python -m cProfile -o output main.py
+# exit if incorrect number of arguments
+if len(sys.argv) != 5:
+    print("Arguments need to be a path to a file, the amount of houses, \
+        the algorithm and the number of iterations")
+    sys.exit()
+# exit if not correct algorithm entered
+if sys.argv[3] not in ['r', 'g', 'h','s']:
+    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h \
+        Simann = s")
+    sys.exit()
+# calculate the required amount of the different houses
+filename = sys.argv[1]
+c = int(sys.argv[2])
+n_iterations = int(sys.argv[4])
 
-# import pstats
-# p = pstats.Stats('output')
-# p.sort_stats('cumulative').print_stats(10)
+# exit if non valid number of houses is entered
+if c <= 0:
+   print("Please enter non-negative number of houses")
+   sys.exit
 
-filename = './data/wijk_1.csv'
-grid = Grid(filename, 40)
+if n_iterations <= 1:
+ print("Please enter a number of iterations larger than 1")
+ sys.exit
 
-max_score = 0
-for i in range(10):
+algorithm = sys.argv[3]
+grid = Grid(filename, c)
+
+fn = filename.strip('.csv') + '_' + str(c) + '_' + sys.argv[3]
+fn = fn.replace('data', 'results')
+print(fn)
+
+try:
+    g = Grid(fn + '_best.csv', c = None)
+    max_score = g.calculate_price()
+except:
+    max_score = 0
+
+for i in range(n_iterations):
     grid.reset()
     print('ITERATION', i)
-    simann(grid,10000000,0.0001,0.01,0.3)
+    # Run correct algorithm
+    if algorithm == 'r':
+        random(grid)
+    if algorithm == 'g':
+        greedy(grid)
+    if algorithm == 'h':
+        hillclimb(grid)
+    if algorithm == 's':
+        simann(grid,10000000,0.0001,0.01,0.3)
     price = grid.calculate_price()
-    price > max_score
+    if price > max_score:
         max_score = price
-        write_csv(grid, filename = 'wijk_1_40.csv')
-    #write_outputcsv('strips_simann.csv', 60, 'simann_swap', grid.calculate_price())
+        write_csv(grid, fn + '_best.csv')
+    write_outputcsv(fn + '.csv', c, algorithm, price)
+    grid.reset()
+
+g2 = Grid(fn + '_best.csv', c = None)
+visualize_map(g2)

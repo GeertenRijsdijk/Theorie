@@ -27,12 +27,17 @@ The different algorithms that can be run are:
 So for example:
     python main.py ./wijken/wijk_3.csv 20 g
 
+To run the visualization:
+    python visualize_csv.py <path with filename>
+so for example:
+    python visualize_csv.py results/wijk_1_20.csv
+
 ### Structure
 
 The following list describes the file structure of the project:
 
 - **/main.py**: the file used to run the algorithms.
-- **/visualize_csv.py** the file used to visualize the maps/result csv files
+- **/visualize_csv.py** the file used to visualize the result csv files
 - **/code**: contains all code of the project.
   - **/code/algorithms**: contains code for the different algorithms.
     - **/code/algorithms/random.py**: contains code for the random algorithm.
