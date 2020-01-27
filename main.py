@@ -24,14 +24,36 @@ import matplotlib.pyplot as plt
 
 # Exit if incorrect number of arguments
 if len(sys.argv) != 4:
-    print("Arguments need to be a path to a file, \
-        the amount of houses and the algorithm")
+    print("Arguments need to be a path to a file, the amount "
+     "of houses and the algorithm")
     sys.exit()
 # Exit if not correct algorithm entered
 if sys.argv[3] not in ['r', 'g', 'h','s']:
-    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h, \
-        Simann = s")
+    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h, "
+        "Simann = s")
     sys.exit()
+
+# Let user enter parameters for simulated annealing
+if sys.argv[3] == 's':
+    temperature = input("Please enter temperature (for standard testing "
+        "values: 10000000 press enter): ")
+    cooling_rate = input("Please enter cooling rate (for standard testing "
+        "values: 0.0001 press enter): ")
+    stopT = input("Please enter stop temperature (for standard testing "
+        "values: 0.01 press enter): ")
+    swap_prob = input("Please enter swap probability (for standard testing "
+        "values: 0.3 press enter): ")
+
+    # Insert standard testing values if user presses enter
+    if temperature == '':
+        temperature = 10000000
+    if cooling_rate == '':
+        cooling_rate = 0.0001
+    if stopT == '':
+        stopT = 0.01
+    if swap_prob == '':
+        swap_prob = 0.3
+
 # Calculate the required amount of the different houses
 filename = sys.argv[1]
 c = int(sys.argv[2])
@@ -50,7 +72,7 @@ if sys.argv[3] == 'g':
 if sys.argv[3] == 'h':
     price_list = hillclimb(grid)
 if sys.argv[3] == 's':
-    price_list = simann(grid,10000000,0.0001,0.01,0.3)
+    price_list = simann(grid,temperature, cooling_rate, stopT, swap_prob)
 
 print(grid.calculate_price())
 
