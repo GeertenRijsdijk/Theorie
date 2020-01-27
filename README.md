@@ -18,8 +18,8 @@ Or using conda:
 ### Usage
 To run the code
     python main.py <path with filename> <amount of houses> <algorithm>
-runs the wijk_3.csv file with 20 houses with the greedy algorithm.
-The different algorithms that can be run are:
+runs the wijk_3.csv file with 20 houses with the greedy algorithm.  
+The different algorithms that can be run are:  
     - r: random
     - g: greedy
     - h: hillclimber
