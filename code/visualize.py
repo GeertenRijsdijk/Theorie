@@ -116,9 +116,9 @@ def visualize_map(grid):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     location = grid.filename
-                    location = location.strip('.csv')
-                    location = location.replace('/data','/results')
-                    pygame.image.save(screen, '.' + location + '.png')
+                    location = location.replace('.csv', '')
+                    location = location.replace('data','results')
+                    pygame.image.save(screen, location + '.png')
 
         clock.tick(60)
 

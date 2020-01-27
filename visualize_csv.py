@@ -20,7 +20,7 @@ import sys
 from code.visualize import *
 from code.classes.grid_class import *
 
-# exit if incorrect number of arguments
+# Exit if incorrect number of arguments
 if len(sys.argv) != 2:
     print('Usage: visualize_csv.py <filepath>')
     quit()
