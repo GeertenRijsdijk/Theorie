@@ -24,7 +24,7 @@ def hillclimb(grid):
     # Initialize a greedy layout
     greedy(grid)
 
-    # move all houses with moves that maximize the score
+    # Move all houses with moves that maximize the score
     current_total_score = grid.calculate_price()
     price_list = [current_total_score]
     new_total_score = np.inf
