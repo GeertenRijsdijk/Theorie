@@ -250,9 +250,9 @@ class Grid():
 
         # Calculate prices
         base_prices = np.array([self.house_info[t][3] \
-         for t, _, _ in self.houses])
+            for t, _, _ in self.houses])
         price_incs = np.array([self.house_info[t][4] \
-         for t, _, _ in self.houses])
+            for t, _, _ in self.houses])
         prices = base_prices + base_prices * price_incs * min_dists
 
         return np.sum(prices)
@@ -383,10 +383,10 @@ class Grid():
 
         # Check if required space is in the grid
         if h2_x - h1_ex1 < 0 or h2_y - h1_ex1 < 0 or h2_x + h1_w + h1_ex1 > 160\
-         or h2_y + h1_h + h1_ex1 > 180:
+            or h2_y + h1_h + h1_ex1 > 180:
             new_score = 0
         if h1_x - h2_ex1 < 0 or h1_y - h2_ex1 < 0 or h1_x + h2_w + h2_ex1 > 160\
-         or h1_y + h2_h + h2_ex1 > 180:
+            or h1_y + h2_h + h2_ex1 > 180:
             new_score = 0
 
         # Check if house will be in the water

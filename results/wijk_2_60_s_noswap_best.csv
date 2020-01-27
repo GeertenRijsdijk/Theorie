@@ -1,0 +1,65 @@
+num,bottom_left,top_right,type
+water_1,"0,135","32,180",WATER
+water_2,"0,0","32,45",WATER
+water_3,"128,135","160,180",WATER
+water_4,"128,0","160,45",WATER
+eengezinswoning_1,"106, 101","114, 93",EENGEZINSWONING
+eengezinswoning_2,"35, 121","43, 113",EENGEZINSWONING
+bungalow_1,"84, 116","95, 109",BUNGALOW
+bungalow_2,"36, 105","47, 98",BUNGALOW
+maison_11,"76, 16","88, 6",MAISON
+maison_12,"112, 154","124, 144",MAISON
+eengezinswoning_3,"60, 44","68, 36",EENGEZINSWONING
+eengezinswoning_4,"120, 178","128, 170",EENGEZINSWONING
+bungalow_3,"69, 104","80, 97",BUNGALOW
+bungalow_4,"32, 145","43, 138",BUNGALOW
+eengezinswoning_5,"93, 47","101, 39",EENGEZINSWONING
+maison_13,"6, 55","18, 45",MAISON
+eengezinswoning_6,"88, 79","96, 71",EENGEZINSWONING
+eengezinswoning_7,"3, 113","11, 105",EENGEZINSWONING
+maison_14,"55, 160","67, 150",MAISON
+maison_15,"142, 55","154, 45",MAISON
+bungalow_5,"72, 89","83, 82",BUNGALOW
+maison_16,"84, 157","96, 147",MAISON
+bungalow_6,"3, 98","14, 91",BUNGALOW
+maison_17,"142, 134","154, 124",MAISON
+eengezinswoning_8,"19, 118","27, 110",EENGEZINSWONING
+maison_18,"142, 96","154, 86",MAISON
+eengezinswoning_9,"55, 23","63, 15",EENGEZINSWONING
+maison_19,"105, 121","117, 111",MAISON
+eengezinswoning_10,"105, 29","113, 21",EENGEZINSWONING
+bungalow_7,"71, 135","82, 128",BUNGALOW
+bungalow_8,"53, 73","64, 66",BUNGALOW
+eengezinswoning_11,"89, 63","97, 55",EENGEZINSWONING
+bungalow_9,"63, 58","74, 51",BUNGALOW
+eengezinswoning_12,"32, 38","40, 30",EENGEZINSWONING
+eengezinswoning_13,"89, 100","97, 92",EENGEZINSWONING
+eengezinswoning_14,"105, 58","113, 50",EENGEZINSWONING
+eengezinswoning_15,"120, 10","128, 2",EENGEZINSWONING
+bungalow_10,"3, 135","14, 128",BUNGALOW
+bungalow_11,"74, 35","85, 28",BUNGALOW
+bungalow_12,"103, 86","114, 79",BUNGALOW
+eengezinswoning_16,"36, 89","44, 81",EENGEZINSWONING
+eengezinswoning_17,"107, 43","115, 35",EENGEZINSWONING
+eengezinswoning_18,"91, 133","99, 125",EENGEZINSWONING
+bungalow_13,"31, 70","42, 63",BUNGALOW
+bungalow_14,"32, 177","43, 170",BUNGALOW
+bungalow_15,"53, 88","64, 81",BUNGALOW
+eengezinswoning_19,"120, 30","128, 22",EENGEZINSWONING
+eengezinswoning_20,"54, 103","62, 95",EENGEZINSWONING
+eengezinswoning_21,"48, 58","56, 50",EENGEZINSWONING
+eengezinswoning_22,"117, 75","125, 67",EENGEZINSWONING
+eengezinswoning_23,"55, 133","63, 125",EENGEZINSWONING
+eengezinswoning_24,"67, 120","75, 112",EENGEZINSWONING
+eengezinswoning_25,"2, 84","10, 76",EENGEZINSWONING
+eengezinswoning_26,"74, 178","82, 170",EENGEZINSWONING
+eengezinswoning_27,"79, 49","87, 41",EENGEZINSWONING
+eengezinswoning_28,"91, 33","99, 25",EENGEZINSWONING
+eengezinswoning_29,"51, 118","59, 110",EENGEZINSWONING
+eengezinswoning_30,"72, 74","80, 66",EENGEZINSWONING
+eengezinswoning_31,"32, 10","40, 2",EENGEZINSWONING
+eengezinswoning_32,"100, 10","108, 2",EENGEZINSWONING
+eengezinswoning_33,"21, 102","29, 94",EENGEZINSWONING
+eengezinswoning_34,"103, 73","111, 65",EENGEZINSWONING
+eengezinswoning_35,"19, 85","27, 77",EENGEZINSWONING
+eengezinswoning_36,"97, 178","105, 170",EENGEZINSWONING
