@@ -25,22 +25,22 @@ from code.algorithms.simann import *
 from code.output import *
 import sys
 
-# exit if incorrect number of arguments
+# Exit if incorrect number of arguments
 if len(sys.argv) != 5:
     print("Arguments need to be a path to a file, the amount of houses, \
         the algorithm and the number of iterations")
     sys.exit()
-# exit if not correct algorithm entered
+# Exit if not correct algorithm entered
 if sys.argv[3] not in ['r', 'g', 'h','s']:
     print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h \
         Simann = s")
     sys.exit()
-# calculate the required amount of the different houses
+# Calculate the required amount of the different houses
 filename = sys.argv[1]
 c = int(sys.argv[2])
 n_iterations = int(sys.argv[4])
 
-# exit if non valid number of houses is entered
+# Exit if non valid number of houses is entered
 if c <= 0:
    print("Please enter non-negative number of houses")
    sys.exit
@@ -52,6 +52,7 @@ if n_iterations <= 1:
 algorithm = sys.argv[3]
 grid = Grid(filename, c)
 
+# Make the filename for the output file
 fn = filename.strip('.csv') + '_' + str(c) + '_' + sys.argv[3]
 fn = fn.replace('data', 'results')
 print(fn)
@@ -77,9 +78,9 @@ for i in range(n_iterations):
     price = grid.calculate_price()
     if price > max_score:
         max_score = price
-        write_csv(grid, fn + '_best.csv')
-    write_outputcsv(fn + '.csv', c, algorithm, price)
+        write_csv(grid, '.' + fn + '_best.csv')
+    write_outputcsv('.' + fn + '.csv', c, algorithm, price)
     grid.reset()
 
-g2 = Grid(fn + '_best.csv', c = None)
+g2 = Grid('.' + fn + '_best.csv', c = None)
 visualize_map(g2)
