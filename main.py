@@ -35,14 +35,14 @@ if sys.argv[3] not in ['r', 'g', 'h','s']:
 
 # Let user enter parameters for simulated annealing
 if sys.argv[3] == 's':
-    temperature = input("Please enter temperature (for standard testing "
-        "values: 10000000 press enter): ")
-    cooling_rate = input("Please enter cooling rate (for standard testing "
-        "values: 0.0001 press enter): ")
-    stopT = input("Please enter stop temperature (for standard testing "
-        "values: 0.01 press enter): ")
-    swap_prob = input("Please enter swap probability (for standard testing "
-        "values: 0.3 press enter): ")
+    temperature = int(input("Please enter temperature (for standard testing "
+        "values: 10000000 press enter): "))
+    cooling_rate = int(input("Please enter cooling rate (for standard testing "
+        "values: 0.0001 press enter): "))
+    stopT = int(input("Please enter stop temperature (for standard testing "
+        "values: 0.01 press enter): "))
+    swap_prob = int(input("Please enter swap probability (for standard testing "
+        "values: 0.3 press enter): "))
 
     # Insert standard testing values if user presses enter
     if temperature == '':
