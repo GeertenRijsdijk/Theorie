@@ -48,19 +48,19 @@ if sys.argv[3] == 's':
     if temperature == '':
         temperature = 10000000
     else:
-        temperature = int(temperature)
+        temperature = float(temperature)
     if cooling_rate == '':
         cooling_rate = 0.0001
     else:
-        cooling_rate = int(cooling_rate)
+        cooling_rate = float(cooling_rate)
     if stopT == '':
         stopT = 0.01
     else:
-        stopT = int(stopT)
+        stopT = float(stopT)
     if swap_prob == '':
         swap_prob = 0.3
     else:
-        swap_prob = int(swap_prob)
+        swap_prob = float(swap_prob)
 
 # Calculate the required amount of the different houses
 filename = sys.argv[1]
