@@ -11,13 +11,13 @@ It places between 1 and 4 water blocks of a random size.
 '''
 import numpy as np
 
-# checks if the water blocks intersect
+# Checks if the water blocks intersect
 def water_intersects(grid,x1,y1,x2,y2):
     if 'W' in grid.layout[x1:x2,y1:y2]:
         return True
     return False
 
-# places random amount of water that is 20% of the total surface
+# Places random amount of water that is 20% of the total surface
 def random_water(grid):
     waters = np.random.randint(1,5) # between 1 and 4 waters
     for water in range(waters):

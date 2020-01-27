@@ -48,7 +48,7 @@ def draw_text(surf, text, fontsize, x, y, pos = "left", color = BLACK):
     surf.blit(text_surface, text_rect)
     return (text_rect.x, text_rect.y, text_rect.width, text_rect.height)
 
-# draws a grid on the pygame window
+# Draws a grid on the pygame window
 def draw_grid(screen):
     for x in range(0, WIDTH, GRID_W):
         pygame.draw.line(screen, GREY, (x,0), (x,HEIGHT))
@@ -57,7 +57,7 @@ def draw_grid(screen):
 
 pygame.init()
 
-# uses the matrix to print all water and houses on the screen
+# Uses the matrix to print all water and houses on the screen
 def visualize_map(grid):
     if isinstance(grid, np.ndarray):
         matrix = grid
@@ -68,7 +68,7 @@ def visualize_map(grid):
     pygame.display.set_caption('AmstelHague')
     clock = pygame.time.Clock()
 
-    # draw the houses on the screen
+    # Draw the houses on the screen
     screen.fill(WHITE)
     pygame.draw.rect(screen, GREEN, (0,0,WIDTH,HEIGHT))
     pygame.draw.rect(screen, BLACK, (WIDTH, 0, WIDTH_PLUS - WIDTH, HEIGHT), 1)
@@ -92,7 +92,7 @@ def visualize_map(grid):
 
     draw_grid(screen)
 
-    # make the sidebar with information
+    # Make the sidebar with information
     if not isinstance(grid, np.ndarray):
         draw_text(screen, 'FILENAME:', 18, WIDTH + 10, 10)
         draw_text(screen, grid.filename, 12, WIDTH + 30, 30)
@@ -105,14 +105,14 @@ def visualize_map(grid):
 
     pygame.display.flip()
 
-    # main game loop for pygame
+    # Main game loop for pygame
     in_loop = True
     while in_loop:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 return
-            # make a screenshot when you press the spacebar
+            # Make a screenshot when you press the spacebar
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     location = grid.filename
@@ -122,10 +122,10 @@ def visualize_map(grid):
 
         clock.tick(60)
 
-# plots a histogram with the values of the csv output files
+# Plots a histogram with the values of the csv output files
 def make_histogram(filename, n_houses, algorithm, ran = None):
 
-    # read in the result csv files
+    # Read in the result csv files
     with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile, quotechar='"', quoting=csv.QUOTE_ALL,
             skipinitialspace=True)
@@ -141,7 +141,7 @@ def make_histogram(filename, n_houses, algorithm, ran = None):
         print('MEAN:', np.mean(val_list))
         print('MAX:', np.max(val_list))
 
-        # round the price values
+        # Round the price values
         for i, v in enumerate(val_list):
             val = round(v, -5)/1000000
             val_list[i] = val
@@ -149,7 +149,7 @@ def make_histogram(filename, n_houses, algorithm, ran = None):
         print('MEAN2:', np.mean(val_list))
         print('MAX2:', np.max(val_list))
 
-        # put the price values into bins and add them to the plot
+        # Put the price values into bins and add them to the plot
         if ran:
             bins = [round(ran[0] + 0.1*i, 1)
                 for i in range(int(10*(ran[1]-ran[0]+0.001))+1)]
@@ -175,7 +175,7 @@ def make_histogram2(filenames, n_houses, algorithms):
     if len(filenames) != len(algorithms):
         return
     for i in range(len(filenames)):
-        # read in the result csv files
+        # Read in the result csv files
         with open(filenames[i], newline='') as csvfile:
             reader = csv.reader(csvfile, quotechar='"',
                 quoting=csv.QUOTE_ALL, skipinitialspace=True)
@@ -191,7 +191,7 @@ def make_histogram2(filenames, n_houses, algorithms):
             print('MEAN:', np.mean(val_list))
             print('MAX:', np.max(val_list))
 
-            # round the price values
+            # Round the price values
             for i, v in enumerate(val_list):
                 val = round(v, -5)/1000000
                 val_list[i] = val
@@ -199,7 +199,7 @@ def make_histogram2(filenames, n_houses, algorithms):
             print('MEAN2:', np.mean(val_list))
             print('MAX2:', np.max(val_list))
 
-            # put the price values into bins and add them to the plot
+            # Put the price values into bins and add them to the plot
             bins = [round(ran[0] + 0.1*i, 1)
                 for i in range(int(10*(ran[1]-ran[0]+0.001))+1)]
             plt.hist(val_list, bins = bins, edgecolor = 'black',
