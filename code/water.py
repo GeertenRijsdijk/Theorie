@@ -19,16 +19,17 @@ def water_intersects(grid,x1,y1,x2,y2):
 
 # Places random amount of water that is 20% of the total surface
 def random_water(grid):
-    waters = np.random.randint(1,5) # between 1 and 4 waters
+    # Between 1 and 4 waters
+    waters = np.random.randint(1,5)
     for water in range(waters):
         w, h = grid.layout.shape
         amount = int((0.2/waters)*w*h)
-        # check if width / height ratio is correct
+        # Check if width / height ratio is correct
         width = np.random.randint((0.25*amount)**0.5, ((4*amount)**0.5)+1)
         height = int(amount / width)
         x = np.random.randint(0, w - width+1)
         y = np.random.randint(0, h - height+1)
-        # add random fitting water
+        # Add random fitting water
         while water_intersects(grid, x, y, x+width, y+height) == True:
             x = np.random.randint(0, w - width+1)
             y = np.random.randint(0, h - height+1)
