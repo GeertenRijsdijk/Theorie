@@ -21,6 +21,12 @@ class Grid():
         """
         self.filename = filename
 
+        try:
+            open(filename)
+        except:
+            print('Filename', filename, 'not found!')
+            quit()
+
         self.house_info = {
             #'name':(width, height, extra space)
             'EENGEZINSWONING':(8,8,2,285000,0.03),
