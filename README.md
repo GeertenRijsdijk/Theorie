@@ -20,16 +20,16 @@ To run the code
     python main.py <path with filename> <amount of houses> <algorithm>
 runs the wijk_3.csv file with 20 houses with the greedy algorithm.  
 The different algorithms that can be run are:  
-    - r: random
-    - g: greedy
-    - h: hillclimber
-    - s: Simulated Annealing, please enter in the following order the temperature, the cooling rate, the stop temperature and the swap probability. Otherwise press enter to use the standard testing values.
+    * r: random
+    * g: greedy
+    * h: hillclimber
+    * s: Simulated Annealing, please enter in the following order the temperature, the cooling rate, the stop temperature and the swap probability. Otherwise press enter to use the standard testing values.  
     
 So for example:
-    python main.py ./wijken/wijk_3.csv 20 g
+    python main.py ./wijken/wijk_3.csv 20 g  
 
 To run the visualization:
-    python visualize_csv.py <path with filename>
+    python visualize_csv.py <path with filename>  
 so for example:
     python visualize_csv.py results/wijk_1_20.csv
 
