@@ -55,9 +55,9 @@ def simann(grid, T=10000000, cooling_rate=0.003, stopT=0.1, swap_prob=0.1):
             house_2 = rest_houses[ind2]
 
             new_score = grid.price_after_swap(house_1, house_2)
-            # Continue only if the move is legal.
+            # Continue only if the move is legal
             if new_score > 0:
-                # Calculate probability of swapping.
+                # Calculate probability of swapping
                 p = probability_function(score, new_score, T)
                 if p > np.random.uniform(0,1):
                     # Swap the houses
