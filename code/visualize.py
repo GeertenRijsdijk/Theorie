@@ -115,10 +115,13 @@ def visualize_map(grid):
             # Make a screenshot when you press the spacebar
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    location = grid.filename
-                    location = location.replace('.csv', '')
-                    location = location.replace('data','results')
-                    pygame.image.save(screen, location + '.png')
+                    if isinstance(grid, np.ndarray):
+                        pygame.image.save(screen, 'layout.png')
+                    else:
+                        location = grid.filename
+                        location = location.replace('.csv', '')
+                        location = location.replace('data','results')
+                        pygame.image.save(screen, location + '.png')
 
         clock.tick(60)
 
