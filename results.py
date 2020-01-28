@@ -32,7 +32,7 @@ if len(sys.argv) != 5:
     sys.exit()
 # Exit if not correct algorithm entered
 if sys.argv[3] not in ['r', 'g', 'h','s']:
-    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h "
+    print("Please enter valid algorithm: Random = r, Greedy = g, Hillclimb = h "
         "Simann = s")
     sys.exit()
 # Calculate the required amount of the different houses
