@@ -53,7 +53,7 @@ algorithm = sys.argv[3]
 grid = Grid(filename, c)
 
 # Make the filename for the output file
-fn = filename.strip('.csv') + '_' + str(c) + '_' + sys.argv[3]
+fn = filename.replace('.csv', '') + '_' + str(c) + '_' + sys.argv[3]
 fn = fn.replace('data', 'results')
 print(fn)
 
@@ -78,9 +78,9 @@ for i in range(n_iterations):
     price = grid.calculate_price()
     if price > max_score:
         max_score = price
-        write_csv(grid, '.' + fn + '_best.csv')
-    write_outputcsv('.' + fn + '.csv', c, algorithm, price)
+        write_csv(grid, fn + '_best.csv')
+    write_outputcsv(fn + '.csv', c, algorithm, price)
     grid.reset()
 
-g2 = Grid('.' + fn + '_best.csv', c = None)
+g2 = Grid(fn + '_best.csv', c = None)
 visualize_map(g2)
