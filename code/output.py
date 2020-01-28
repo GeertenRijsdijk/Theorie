@@ -36,26 +36,20 @@ def write_csv(grid, filename = 'houses.csv'):
                 bottom_left = str([row[1], row[2] + 7])[1:-1]
                 top_right = str([row[1] + 11, row[2]])[1:-1]
                 format[0] = "bungalow_" + str(bungalow)
-                format[1] = bottom_left
-                format[2] = top_right
-                format[3] = row[0]
                 bungalow += 1
             elif row[0] == "EENGEZINSWONING":
                 bottom_left = str([row[1], row[2] + 8])[1:-1]
                 top_right = str([row[1] + 8, row[2]])[1:-1]
                 format[0] = "eengezinswoning_" + str(eengezinswoning)
-                format[1] = bottom_left
-                format[2] = top_right
-                format[3] = row[0]
                 eengezinswoning += 1
             else:
                 bottom_left = str([row[1], row[2] + 10])[1:-1]
                 top_right = str([row[1] + 12, row[2]])[1:-1]
                 format[0] = "maison_1" + str(maison)
-                format[1] = bottom_left
-                format[2] = top_right
-                format[3] = row[0]
                 maison += 1
+            format[1] = bottom_left
+            format[2] = top_right
+            format[3] = row[0]
 
             # Write house to csv file
             csv_out.writerow(format)
