@@ -25,12 +25,12 @@ import matplotlib.pyplot as plt
 # Exit if incorrect number of arguments
 if len(sys.argv) != 4:
     print("Arguments need to be a path to a file, the amount "
-     "of houses and the algorithm")
+        "of houses and the algorithm")
     sys.exit()
 # Exit if not correct algorithm entered
 if sys.argv[3] not in ['r', 'g', 'h','s']:
-    print("Please enter valid algorithm: Random = r, Greedy = g, Hillclimb = h, "
-        "Simann = s")
+    print("Please enter valid algorithm: Random = r, Greedy = g, "
+        "Hillclimb = h, Simann = s")
     sys.exit()
 
 # Let user enter parameters for simulated annealing
