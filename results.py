@@ -27,13 +27,13 @@ import sys
 
 # Exit if incorrect number of arguments
 if len(sys.argv) != 5:
-    print("Arguments need to be a path to a file, the amount of houses, \
-        the algorithm and the number of iterations")
+    print("Arguments need to be a path to a file, the amount of houses, "
+        "the algorithm and the number of iterations")
     sys.exit()
 # Exit if not correct algorithm entered
 if sys.argv[3] not in ['r', 'g', 'h','s']:
-    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h \
-        Simann = s")
+    print("Please enter valid algorith: Random = r, Greedy = g, Hillclimb = h "
+        "Simann = s")
     sys.exit()
 # Calculate the required amount of the different houses
 filename = sys.argv[1]
