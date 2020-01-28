@@ -23,7 +23,7 @@ The different algorithms that can be run are:
     - r: random  
     - g: greedy  
     - h: hillclimber  
-    - s: Simulated Annealing. Here you get prompted with the following: please enter in the following order: the temperature, the cooling rate, the stop temperature and the swap probability. Otherwise press enter to use the standard testing values.  
+    - s: Simulated Annealing. Here you get prompted to input values for the temperature, cooling rate, stop temperature and swap probability parameters. To choose the standard value, press enter without typing anything.
     
 So for example:
 
