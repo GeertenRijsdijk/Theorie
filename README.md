@@ -16,28 +16,33 @@ Or using conda:
     conda install --file requirements.txt
 
 ### Usage
-To run the code
+To run the code:
+
     python main.py <path with filename> <amount of houses> <algorithm>
-runs the wijk_3.csv file with 20 houses with the greedy algorithm.  
 The different algorithms that can be run are:  
     - r: random  
     - g: greedy  
     - h: hillclimber  
-    - s: Simulated Annealing, please enter in the following order: the temperature, the cooling rate, the stop temperature and the swap probability. Otherwise press enter to use the standard testing values.  
+    - s: Simulated Annealing. Here you get prompted to input values for the temperature, cooling rate, stop temperature and swap probability parameters. To choose the standard value, press enter without typing anything.
     
 So for example:
-    python main.py ./wijken/wijk_3.csv 20 g  
+
+    python main.py ./data/wijk_3.csv 20 g  
+Runs the wijk_3.csv file with 20 houses with the greedy algorithm.  
 
 To run the visualization:
+
     python visualize_csv.py <path with filename>  
 so for example:
-    python visualize_csv.py results/wijk_1_20.csv
+
+    python visualize_csv.py ./results/wijk_1_20.csv
 
 ### Structure
 
 The following list describes the file structure of the project:
 
 - **/main.py**: the file used to run the algorithms.
+- **/results.py**: the file used to test the algorithms.
 - **/visualize_csv.py** the file used to visualize the result csv files
 - **/code**: contains all code of the project.
   - **/code/algorithms**: contains code for the different algorithms.
@@ -50,6 +55,7 @@ The following list describes the file structure of the project:
   - **/code/visualize.py**: contains code for the visualization of the project.
   - **/code/output.py**: contains code for the writing of results to csv.
 - **/data**: contains the data of the layouts of the projects.
+- **/results**: contains the results of the simulated annealing for the data files.
 
 ## Authors
 * Geerten Rijsdijk
